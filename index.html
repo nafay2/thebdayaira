@@ -1,0 +1,1191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2a0a12">
+<title>Happy 20th, Ishu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,400;1,9..144,600&family=Outfit:wght@400;500;600&family=Dancing+Script:wght@500;700&family=Playfair+Display:ital,wght@0,600;0,800;1,500&family=Poppins:wght@400;500;600;700&family=Monoton&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#b3123a; --deep:#5c0a1f; --wine:#2a0a12; --peony:#f7a1c4; --peony2:#ff7eb0; --sun:#f6c33b; --cream:#fff6ec;
+  --ink:#3b2412; --glass:rgba(255,255,255,.16); --glassb:rgba(255,255,255,.5);
+  --display:'Fraunces',Georgia,serif; --body:'Outfit',system-ui,sans-serif; --hand:'Caveat',cursive; --script:'Dancing Script',cursive;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--s2);color:var(--fg);font-family:var(--body);overflow-x:hidden}
+body{min-height:100dvh}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+.hidden{display:none!important}
+.screen{position:fixed;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+.center{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 16px}
+.glass{background:linear-gradient(145deg,var(--g1),var(--g2));border:1px solid var(--gb);border-radius:24px;box-shadow:0 24px 50px -26px rgba(0,0,0,.7),0 0 30px -14px rgba(255,110,190,.45),inset 0 1px 0 rgba(255,255,255,.35)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:999px;font-weight:600;font-size:15px;background:linear-gradient(135deg,var(--peony2),var(--red));box-shadow:0 10px 30px -10px var(--peony2);transition:transform .15s}
+.btn:active{transform:scale(.95)}
+.btn.ghost{background:rgba(255,255,255,.14);box-shadow:none;border:1px solid rgba(255,255,255,.3)}
+.back{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);position:fixed;top:max(12px,env(safe-area-inset-top));left:12px;z-index:50;padding:9px 16px;border-radius:999px;font-size:14px;font-weight:600}
+.page{min-height:100%;padding:76px 16px 60px;position:relative;z-index:1}
+.page-in{animation:pageIn .6s cubic-bezier(.2,.8,.2,1)}
+@keyframes pageIn{from{opacity:0;transform:translateY(24px) scale(.98)}to{opacity:1;transform:none}}
+.h1{font-family:var(--display);font-weight:700;letter-spacing:-.01em;text-shadow:0 2px 24px var(--ts);font-size:clamp(32px,9vw,52px);line-height:1.05;margin:0}
+.eyebrow{font-family:var(--display);font-style:italic;font-size:17px;opacity:.92;font-weight:400}
+.sub{opacity:.95;text-shadow:0 1px 10px var(--ts);font-size:15px;max-width:34ch;margin:10px auto 0}
+.wrap{max-width:560px;margin:0 auto}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:200}
+@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(255,126,176,.15)}}
+
+/* ---------- countdown ---------- */
+#countdown{background:transparent}
+.stars{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.stars i{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;animation:tw 3s ease-in-out infinite}
+@keyframes tw{50%{opacity:.15;transform:scale(.6)}}
+.cd{display:flex;gap:10px;margin:26px 0 12px;cursor:pointer;user-select:none}
+.cd div{min-width:68px;padding:14px 6px 10px;border-radius:18px}
+.cd b{display:block;font-family:var(--display);font-size:clamp(30px,9vw,44px);font-variant-numeric:tabular-nums;line-height:1}
+.cd span{font-size:11px;letter-spacing:.15em;text-transform:uppercase;opacity:.7}
+.skip{margin-top:30px;font-size:12px;opacity:.55;text-decoration:underline;text-underline-offset:4px}
+
+/* ---------- keypads ---------- */
+#lock{background:transparent}
+.dots{display:flex;gap:16px;margin:18px 0 8px}
+.dots i{width:15px;height:15px;border-radius:50%;border:2px solid rgba(255,255,255,.5);transition:all .2s}
+.dots i.on{background:var(--peony2);border-color:var(--peony2);transform:scale(1.15)}
+.dots.bad{animation:shake .4s}.dots.bad i{background:#ff4d6d;border-color:#ff4d6d}
+.dots.good i{background:var(--sun);border-color:var(--sun)}
+@keyframes shake{20%{transform:translateX(-10px)}40%{transform:translateX(10px)}60%{transform:translateX(-7px)}80%{transform:translateX(7px)}}
+.pad{display:grid;grid-template-columns:repeat(3,68px);gap:13px;justify-content:center;margin-top:10px}
+.key{width:68px;height:68px;border-radius:50%;font-family:var(--display);font-size:24px;transition:transform .1s,background .15s}
+.key:active{transform:scale(.88);background:rgba(255,126,176,.45)}
+.msg{min-height:24px;font-size:14px;font-style:italic;color:#ffc2d8}
+.hades{margin-top:22px;display:flex;flex-direction:column;align-items:center;font-size:12px;opacity:.85}
+.hades svg{animation:bob 3.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.bubble{position:relative;margin-top:8px;padding:9px 14px;border-radius:16px;background:#fff;color:#4a1a2a;font-size:13.5px;max-width:260px;animation:pop .3s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{from{transform:scale(.6);opacity:0}}
+.modal{position:fixed;inset:0;z-index:120;background:rgba(10,2,6,.72);display:flex;align-items:center;justify-content:center;padding:16px;animation:fade .3s}
+@keyframes fade{from{opacity:0}}
+
+/* ---------- intro ---------- */
+#intro{background:transparent}
+#heart{position:absolute;inset:0;width:100%;height:100%}
+.introText{position:absolute;left:0;right:0;bottom:max(6vh,28px);text-align:center;padding:0 16px;z-index:2}
+.ignite{font-family:var(--hand);font-size:clamp(32px,9vw,48px);color:#fff;min-height:1.3em;text-shadow:0 0 18px rgba(255,90,160,.9),0 0 2px #fff}
+.ignite .spark{color:#fff6c2;text-shadow:0 0 14px #ff8a00,0 0 4px #ff6a00}
+.tapHint{font-size:15px;letter-spacing:.06em;color:#cfcbd6;animation:breathe 2.4s ease-in-out infinite}
+@keyframes breathe{50%{opacity:.25}}
+.bigHB{opacity:0;transform:translateY(16px);transition:all 1s}
+.bigHB.show{opacity:1;transform:none}
+
+/* ---------- home ---------- */
+#home{background:transparent}
+.sunset-sun{position:absolute;left:50%;bottom:-120px;width:300px;height:300px;margin-left:-150px;border-radius:50%;background:radial-gradient(circle,#ffe08a,#f6a23b 60%,transparent 70%);opacity:.55;filter:blur(2px);pointer-events:none}
+.snow{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:1}
+.snow i{position:absolute;top:-10px;width:5px;height:5px;border-radius:50%;background:#fff;opacity:.75;animation:fall linear infinite}
+@keyframes fall{to{transform:translate(var(--dx,20px),110vh)}}
+.nick{display:inline-block;min-width:5ch;color:#fff;text-shadow:0 0 16px #ff4d9d,0 0 3px #ff4d9d;font-style:italic;transition:opacity .4s}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px}
+.tile{padding:18px 14px 16px;text-align:left;position:relative;overflow:hidden;transition:transform .2s;min-height:118px}
+.tile:active{transform:scale(.96)}
+.tile .em{font-size:32px;display:block;margin-bottom:8px;animation:bob 3s ease-in-out infinite}
+.tile b{font-family:var(--display);font-size:18px;display:block;line-height:1.15}
+.tile small{opacity:.8;font-size:12px;display:block;margin-top:4px}
+.tile.wide{grid-column:span 2}
+.record{display:flex;align-items:center;gap:16px;padding:14px 16px;margin-top:12px;text-decoration:none;color:#fff}
+.vinyl{flex:none;width:68px;height:68px;border-radius:50%;background:repeating-radial-gradient(circle,#111 0 2px,#1d1d1d 2px 4px);display:grid;place-items:center;animation:spin 3.2s linear infinite;box-shadow:0 6px 20px rgba(0,0,0,.5)}
+.vinyl::after{content:'';width:24px;height:24px;border-radius:50%;background:radial-gradient(circle,#fff 0 3px,var(--red) 3px)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.days{margin-top:14px;font-size:13px;opacity:.85}
+
+/* ---------- poems ---------- */
+#poems{background:transparent}
+.scraps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 12px;margin-top:24px}
+.scrap{position:relative;padding:22px 18px;min-height:88px;display:grid;place-items:center;text-align:center;color:var(--ink);font-family:var(--hand);font-size:19px;font-weight:700;line-height:1.05;transform:rotate(var(--r));transition:transform .25s}
+.scrap:active{transform:rotate(0) scale(.95)}
+.scrap::before{content:'';position:absolute;inset:-4px;background:var(--scrapImg) center/100% 100% no-repeat;z-index:-1}
+.scrap span{position:relative}
+.scrap .num{position:absolute;top:6px;left:9px;font-size:13px;opacity:.55;font-family:var(--body);font-weight:600}
+.modal.poem{align-items:flex-start;overflow-y:auto;padding:20px 12px 40px}
+.paperWrap{position:relative;width:min(560px,100%);margin:auto;animation:unfold .9s cubic-bezier(.2,.9,.25,1)}
+@keyframes unfold{0%{transform:scale(.25) rotate(-14deg);filter:blur(1px) brightness(.7)}55%{transform:scale(1.03) rotate(1.5deg)}100%{transform:none}}
+.paper{position:relative;padding:56px 40px 56px;color:var(--ink)}
+.paper::before{content:'';position:absolute;inset:0;background:var(--sheetImg) center/100% 100% no-repeat}
+.paper::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(40% 30% at 20% 25%,rgba(120,70,20,.16),transparent 70%),radial-gradient(30% 25% at 80% 70%,rgba(120,70,20,.14),transparent 70%),radial-gradient(20% 18% at 70% 15%,rgba(90,40,10,.12),transparent 70%)}
+.paper > *{position:relative;z-index:1}
+.ptitle{font-family:var(--hand);font-weight:700;font-size:34px;text-align:center;margin:0 0 6px}
+.pnote{font-family:var(--hand);font-size:20px;color:#8a2a1a;text-align:center;transform:rotate(-1.5deg);margin:0 0 14px;opacity:.9}
+.pline{font-family:var(--hand);font-size:23px;line-height:1.32;margin:0;opacity:0;transform:translateY(6px);transition:opacity .7s,transform .7s}
+.pline.in{opacity:1;transform:none}
+.pgap{height:14px}
+.pout{font-family:var(--hand);font-size:20px;color:#8a2a1a;margin-top:18px;line-height:1.3}
+.pout .glow{color:#c2410c;text-shadow:0 0 10px rgba(246,195,59,.9);animation:flick 1.6s ease-in-out infinite}
+@keyframes flick{50%{text-shadow:0 0 22px rgba(246,160,59,1)}}
+.close{position:absolute;top:10px;right:12px;z-index:3;width:36px;height:36px;border-radius:50%;background:rgba(59,36,18,.15);color:var(--ink);font-size:20px}
+.pnav{display:flex;justify-content:space-between;margin-top:22px;gap:10px}
+.pnav button{font-family:var(--hand);font-size:22px;color:var(--ink);padding:6px 10px;border-radius:10px;background:rgba(59,36,18,.08)}
+
+/* ---------- arcade ---------- */
+#arcade{background:transparent}
+#arcade::before{content:'';position:fixed;left:-50%;right:-50%;bottom:0;height:38vh;background-image:linear-gradient(rgba(255,60,190,.55) 1px,transparent 1px),linear-gradient(90deg,rgba(255,60,190,.55) 1px,transparent 1px);background-size:40px 40px;transform:perspective(300px) rotateX(60deg);transform-origin:bottom;opacity:.45;pointer-events:none}
+.neon{font-family:'Monoton',var(--display);font-size:clamp(30px,10vw,52px);color:#ffd6f5;text-shadow:0 0 6px #fff,0 0 14px #ff3cbe,0 0 30px #ff3cbe,0 0 60px #b100ff;animation:neon 4s infinite;margin:0;line-height:1.1;font-weight:400}
+@keyframes neon{0%,18%,22%,60%,64%,100%{opacity:1}20%,62%{opacity:.35}}
+.tickets{display:inline-flex;gap:8px;align-items:center;margin-top:12px;padding:8px 16px;border-radius:999px;font-weight:600;font-size:14px}
+.games{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px;position:relative}
+.game{padding:16px 12px;text-align:center;border-radius:18px;background:rgba(20,0,40,.6);border:1.5px solid rgba(255,60,190,.6);box-shadow:0 0 18px -4px rgba(255,60,190,.7),inset 0 0 18px -8px rgba(0,229,255,.8)}
+.game .em{font-size:34px;display:block}
+.game b{display:block;margin-top:6px;font-size:15px}
+.game small{display:block;font-size:11.5px;opacity:.7;margin-top:2px}
+.game.soon{opacity:.55;border-style:dashed}
+.stage{position:relative;margin-top:16px;border-radius:20px;overflow:hidden;background:rgba(10,0,25,.75);border:1.5px solid rgba(0,229,255,.5);height:min(62vh,520px);touch-action:none}
+.gover{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:20px;background:rgba(20,8,45,.55)}
+.gover b{font-family:var(--display);font-size:26px}.gover small{opacity:.85;max-width:26ch}.gover .btn{margin-top:8px}
+.claw .rail{position:absolute;top:44px;left:12px;right:12px;height:6px;border-radius:3px;background:rgba(255,255,255,.5)}
+.clawArm{position:absolute;top:44px;left:0;width:40px;z-index:2}
+.cord{width:3px;height:20px;margin:0 auto;background:#e8e8f0;transition:height .9s ease}
+.grip{font-size:30px;text-align:center;line-height:1;margin-top:-4px;transform:scaleX(-1)}
+.pile{position:absolute;left:0;right:0;bottom:66px;height:60px}
+.pile span,.clawArm span{position:absolute;bottom:0;font-size:40px;line-height:1;transition:top .9s ease}
+.clawArm span{bottom:auto}
+.chute{position:absolute;left:10px;bottom:70px;width:52px;height:52px;border:2px dashed rgba(255,255,255,.6);border-radius:12px;display:grid;place-items:center;font-size:11px;opacity:.8}
+.dropBtn{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);white-space:nowrap}
+.stageBar{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;padding:10px 14px;font-size:13px;font-weight:600;z-index:3}
+.balloon{position:absolute;bottom:-90px;width:54px;height:66px;border-radius:50% 50% 48% 52%/55% 55% 45% 45%;cursor:pointer;will-change:transform}
+.balloon::after{content:'';position:absolute;left:50%;top:100%;width:1px;height:38px;background:rgba(255,255,255,.5)}
+.balloon::before{content:'';position:absolute;top:12%;left:22%;width:24%;height:22%;border-radius:50%;background:rgba(255,255,255,.45)}
+.coupon{width:min(340px,100%);padding:26px 22px;border-radius:18px;background:repeating-linear-gradient(90deg,transparent 0 10px,rgba(255,255,255,.08) 10px 11px),linear-gradient(135deg,#ffe08a,#f6a23b);color:#4a1a0a;text-align:center;border:3px dashed #8a3a0a;box-shadow:0 20px 60px -20px #f6c33b;animation:pop .45s cubic-bezier(.3,1.6,.5,1)}
+.coupon h3{font-family:var(--display);font-size:24px;margin:6px 0 8px}
+.scratch{position:relative;width:min(320px,100%);margin:40px auto 0;aspect-ratio:1.6;border-radius:16px;overflow:hidden}
+.scratch .under{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:16px;background:linear-gradient(135deg,#ffe08a,#ff9ec4);color:#4a1a0a;font-weight:700;font-size:18px}
+.scratch canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+
+/* ---------- desserts ---------- */
+#desserts{background:transparent}
+.awning{display:none;position:absolute;top:0;left:0;right:0;height:64px;background:repeating-linear-gradient(90deg,#e8507a 0 34px,#fff 34px 68px);-webkit-mask:radial-gradient(18px at 17px 100%,#0000 98%,#000) -0px 0/34px 100%;mask:radial-gradient(18px at 17px 100%,#0000 98%,#000) 0 0/34px 100%}
+
+.menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px}
+.dish{padding:14px 10px;border-radius:22px;background:linear-gradient(145deg,var(--g1),var(--g2));border:1px solid var(--gb);box-shadow:0 18px 36px -24px rgba(40,24,110,.7),inset 0 1px 0 rgba(255,255,255,.7);text-align:center;transition:transform .15s}
+.dish:active{transform:scale(.94)}
+.dish .em{font-size:38px;display:block}
+.dish b{display:block;font-family:var(--display);font-size:15.5px;margin-top:4px}
+.dish small{display:block;font-size:11.5px;opacity:.85;margin-top:2px}
+.dish.added{border-color:#ffe08a;box-shadow:0 0 0 2px #ffe08a,0 18px 36px -24px rgba(40,24,110,.7)}
+.table{margin-top:22px;padding:18px 14px 22px;border-radius:28px;background:linear-gradient(145deg,var(--g1),var(--g2));border:1px solid var(--gb);min-height:120px;text-align:center}
+.plates{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:10px;font-size:34px}
+.plates span{animation:pop .4s cubic-bezier(.3,1.6,.5,1)}
+.bill{margin-top:12px;font-family:var(--hand);font-size:22px}
+
+/* ---------- 20 things ---------- */
+#things{background:transparent}
+.sea-sun{position:fixed;left:50%;top:74%;width:150px;height:150px;margin:-75px;border-radius:50%;background:radial-gradient(circle,var(--orb) 0 42%,var(--orbglow) 52%,transparent 70%);animation:sink 9s ease-in-out infinite alternate;pointer-events:none}
+@keyframes sink{to{transform:translateY(40px)}}
+.waves{position:fixed;left:0;right:0;top:80%;bottom:0;background:repeating-linear-gradient(180deg,rgba(255,255,255,.22) 0 2px,transparent 2px 14px),linear-gradient(var(--sea1),var(--sea2));animation:wave 6s linear infinite;pointer-events:none}
+@keyframes wave{to{background-position:0 28px}}
+.stack{position:relative;height:300px;margin-top:26px}
+.thing{position:absolute;inset:0;padding:30px 24px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .6s}
+.thing.under>*,.thing.gone>*{visibility:hidden}
+.thing.glass{color:var(--cardfg);background:linear-gradient(150deg,var(--card1),var(--card2));border-color:rgba(255,255,255,.35)}
+.thing .n{filter:drop-shadow(0 2px 12px rgba(255,120,190,.6));font-family:var(--display);font-size:64px;font-weight:700;font-style:italic;line-height:1;background:linear-gradient(#fff,#ffd27a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.thing p{font-family:var(--display);font-size:21px;line-height:1.4;margin:12px 0 0;font-weight:500;text-shadow:0 1px 12px rgba(60,30,120,.4)}
+.thing.gone{transform:translateX(-120%) rotate(-14deg);opacity:0}
+.thing.under{transform:translateY(14px) scale(.94);opacity:.6}
+
+/* ---------- ticket ---------- */
+#ticket{background:transparent}
+.cloud{z-index:0;position:fixed;width:160px;height:50px;background:rgba(255,255,255,.55);border-radius:50px;filter:blur(6px);animation:drift linear infinite;pointer-events:none}
+@keyframes drift{from{transform:translateX(-200px)}to{transform:translateX(110vw)}}
+.plane{position:fixed;top:16%;font-size:30px;animation:fly 14s linear infinite;pointer-events:none}
+@keyframes fly{from{left:-50px;transform:translateY(20px) rotate(8deg)}to{left:110%;transform:translateY(-30px) rotate(-4deg)}}
+.pass{position:relative;margin-top:18px;border-radius:20px;background:#fffaf2;color:#2a1a3a;display:flex;overflow:hidden;box-shadow:0 24px 50px -24px rgba(0,0,0,.6);transform:rotate(var(--r,0deg));animation:pop .6s cubic-bezier(.3,1.4,.5,1) both}
+.pass .main{flex:1;padding:16px 16px 14px;min-width:0}
+.pass .stub{width:96px;flex:none;padding:16px 10px;border-left:2px dashed #d9c6b0;background:linear-gradient(#ffe8f0,#fff);position:relative;text-align:center}
+.pass .stub::before,.pass .stub::after{content:'';position:absolute;left:-12px;width:22px;height:22px;border-radius:50%;background:#b4607e}
+.pass .stub::before{top:-11px}.pass .stub::after{bottom:-11px}
+.airline{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#b3123a;font-weight:700}
+.route{display:flex;align-items:center;justify-content:space-between;margin:10px 0 6px}
+.route b{font-family:var(--display);font-size:34px;line-height:1}
+.route small{display:block;font-size:11px;color:#7a6a80}
+.route .line{flex:1;margin:0 8px;border-top:2px dotted #c9a7b8;position:relative}
+.route .line::after{content:'✈';position:absolute;left:50%;top:-12px;transform:translateX(-50%);color:#b3123a}
+.grid4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 10px;margin-top:8px}
+.grid4 div{font-size:10.5px;color:#8a7a90;text-transform:uppercase;letter-spacing:.08em}
+.grid4 b{display:block;font-size:14px;color:#2a1a3a;letter-spacing:0;text-transform:none}
+.barcode{height:46px;margin-top:10px;background:repeating-linear-gradient(90deg,#2a1a3a 0 2px,transparent 2px 4px,#2a1a3a 4px 5px,transparent 5px 8px,#2a1a3a 8px 11px,transparent 11px 12px)}
+.stub .seat{font-family:var(--display);font-size:30px;font-weight:800;color:#b3123a;margin-top:6px}
+
+/* ---------- cake ---------- */
+#cake{background:transparent}
+.bunting{position:absolute;top:56px;left:0;right:0;height:40px;display:flex;justify-content:space-around;pointer-events:none}
+.bunting i{width:0;height:0;border-left:13px solid transparent;border-right:13px solid transparent;border-top:24px solid var(--c);animation:sway 2.4s ease-in-out infinite;transform-origin:top}
+@keyframes sway{50%{transform:rotate(6deg)}}
+.cakeBox{position:relative;width:min(340px,92vw);margin:34px auto 0}
+.cakeBox svg{width:100%;height:auto;display:block}
+.flame{cursor:pointer;transform-origin:center bottom;animation:flick2 .5s ease-in-out infinite alternate}
+@keyframes flick2{to{transform:scaleY(1.15) scaleX(.9)}}
+.flame.out{display:none}
+.smoke{animation:smoke 1.4s ease-out forwards}
+@keyframes smoke{to{transform:translateY(-30px);opacity:0}}
+.floatB{position:fixed;bottom:-100px;width:40px;height:50px;border-radius:50%;animation:rise linear infinite;pointer-events:none;opacity:.8}
+@keyframes rise{to{transform:translateY(-130vh) translateX(var(--dx))}}
+
+/* ---------- cats ---------- */
+#cats{background:transparent}
+.rug{position:fixed;left:50%;bottom:-70px;width:560px;height:200px;margin-left:-280px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.6),rgba(255,182,214,.38) 55%,transparent);pointer-events:none}
+.catRow{display:flex;justify-content:space-around;align-items:flex-end;margin-top:40px;gap:10px}
+.cat{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;min-width:0}
+.cat button{display:block}
+.cat .say{min-height:70px;display:flex;align-items:flex-end}
+.cat .bubble{font-size:13.5px}
+.cat b{font-family:var(--display);font-size:18px}
+.cat small{font-size:11.5px;opacity:.75}
+.jump{animation:jump 1.4s cubic-bezier(.3,.7,.4,1)}
+@keyframes jump{0%{transform:translateY(0) scale(1,1)}10%{transform:translateY(0) scale(1.2,.8)}45%{transform:translateY(-55vh) rotate(-360deg) scale(1)}80%{transform:translateY(0) rotate(-360deg) scale(1.15,.85)}100%{transform:translateY(0) rotate(-360deg)}}
+
+/* ---------- letter ---------- */
+#letter{background:transparent}
+.candle{display:none;position:fixed;top:18px;left:50%;margin-left:-6px;width:12px;height:60px;border-radius:3px;background:linear-gradient(#fff4e0,#e8d3b0);pointer-events:none;opacity:.0}
+.envelope{position:relative;width:min(330px,90vw);aspect-ratio:1.55;margin:44px auto 0;cursor:pointer;perspective:800px}
+.envelope .body{position:absolute;inset:0;background:linear-gradient(#f3dfc6,#e6cba8);border-radius:8px;box-shadow:0 30px 60px -28px #000}
+.envelope .flap{position:absolute;left:0;right:0;top:0;height:60%;background:linear-gradient(#ead2b2,#dcc09a);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .8s;z-index:2}
+.envelope.open .flap{transform:rotateX(180deg);z-index:0;opacity:0;transition:transform .8s,opacity .35s .45s}
+.seal{position:absolute;left:50%;top:52%;width:58px;height:58px;margin:-29px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#e0405f,#8f0f2c 70%);box-shadow:0 4px 10px rgba(0,0,0,.4),inset 0 0 0 4px rgba(0,0,0,.12);z-index:3;display:grid;place-items:center;font-family:var(--script);font-size:24px;color:#ffd0dc;transition:opacity .4s}
+.envelope.open .seal{opacity:0}
+.envWords{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-family:var(--hand);font-size:19px;color:#6a3a1a;z-index:1}
+.letterPaper{position:relative;margin:24px auto 0;width:min(560px,100%);padding:34px 24px 40px;border-radius:10px;outline:10px solid rgba(255,255,255,.22);outline-offset:0;background:linear-gradient(#fffaf0,#fbefd9);color:#3a1420;box-shadow:0 30px 70px -30px #000;background-image:repeating-linear-gradient(transparent 0 33px,rgba(179,18,58,.12) 33px 34px),linear-gradient(#fffaf0,#fbefd9);animation:pageIn .8s}
+.letterPaper p{font-family:var(--script);font-size:22px;line-height:34px;margin:0 0 0;min-height:34px}
+.letterPaper .sign{text-align:right;margin-top:18px;font-size:26px}
+.typing::after{content:'|';animation:breathe .8s infinite;color:var(--red)}
+
+/* ---------- the sky: one living background, every page is a different hour of the same evening ---------- */
+@property --s1{syntax:'<color>';inherits:true;initial-value:#0d0824}
+@property --s2{syntax:'<color>';inherits:true;initial-value:#1f1150}
+@property --s3{syntax:'<color>';inherits:true;initial-value:#3d1a6b}
+@property --s4{syntax:'<color>';inherits:true;initial-value:#6e2266}
+@property --a1{syntax:'<color>';inherits:true;initial-value:#7af0d6}
+@property --a2{syntax:'<color>';inherits:true;initial-value:#ff8fd0}
+#sky{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  background:linear-gradient(180deg,var(--s1) 0%,var(--s2) 40%,var(--s3) 75%,var(--s4) 100%);
+  transition:--s1 1.8s ease,--s2 1.8s ease,--s3 1.8s ease,--s4 1.8s ease,--a1 1.8s ease,--a2 1.8s ease,filter 2.8s ease}
+.aurora{position:absolute;left:-30%;width:160%;height:46%;top:-6%;opacity:.38;will-change:transform;
+  background:radial-gradient(40% 55% at 30% 60%,var(--a1),transparent 70%),radial-gradient(35% 50% at 70% 40%,var(--a2),transparent 70%);
+  animation:aur 18s ease-in-out infinite alternate}
+.aurora.b{top:4%;height:36%;opacity:.35;animation-duration:26s;animation-direction:alternate-reverse}
+@keyframes aur{0%{transform:translateX(-6%)}100%{transform:translateX(6%)}}
+.glow{position:absolute;left:50%;bottom:-38vh;width:140vw;height:70vh;margin-left:-70vw;border-radius:50%;background:radial-gradient(closest-side,var(--glow1),var(--glow2) 55%,transparent);opacity:.9;transition:opacity 1.8s}
+#sky .st{opacity:var(--starA);position:absolute;width:3px;height:3px;border-radius:50%;background:radial-gradient(circle,#fff 0 35%,transparent 70%)}
+#sky .st.tw{animation:tw 3.4s ease-in-out infinite}
+#sky .sn{position:absolute;top:-12px;border-radius:50%;background:var(--snow);box-shadow:0 0 4px var(--snowb);animation:fall linear infinite}
+.screen{z-index:2}
+body[data-scene=poems] #sky .sn{display:none}
+.glass,.dish,.table{text-shadow:0 1px 8px var(--ts2)}
+.tile small,.dish small{opacity:.95}
+body{--s1:#0d0824;--s2:#1f1150;--s3:#3d1a6b;--s4:#6e2266}
+body[data-scene=countdown],body[data-scene=lock]{--a1:#5ee8d0;--a2:#b98cff}
+body[data-scene=poems]{--a1:#ffb1d8;--a2:#9db8ff}
+body[data-scene=arcade]{--a1:#58f0ff;--a2:#ff5fd2}
+body[data-scene=desserts]{--a1:#fff1a8;--a2:#ffc2e6}
+body[data-scene=things]{--a1:#ffd7a8;--a2:#ff9bc8}
+body[data-scene=ticket]{--a1:#ffffff;--a2:#ffe1f0}
+body[data-scene=cake]{--a1:#ffe066;--a2:#ff8fd0}
+body[data-scene=cats]{--a1:#b8f5ff;--a2:#ffc0e0}
+body[data-scene=letter]{--a1:#ffe6b0;--a2:#ffb1d8}
+body[data-scene=intro] #sky{filter:grayscale(1) brightness(1.25)}
+body[data-scene=intro].lit #sky{filter:none}
+
+
+
+/* ---------- themes ---------- */
+.hb20{color:var(--fg);text-shadow:0 0 30px rgba(255,126,176,.7)}
+.glowName{text-shadow:0 0 18px #ff4d9d,0 0 4px #ff4d9d}
+body.light{--peony:#d6336c}
+body.light .ignite{color:#b3123a;text-shadow:0 0 14px #fff,0 0 2px #fff}
+body.light .ignite .spark{color:#e07a00;text-shadow:0 0 12px #fff}
+body.light .hb20{text-shadow:0 2px 18px #fff}
+body.light .glowName{color:#c2185b;text-shadow:0 0 16px #fff}
+body.light .nick{color:#c2185b;text-shadow:0 0 12px #fff}
+body.light .neon{color:#e0218a;text-shadow:0 0 2px #fff,0 0 14px #fff,0 3px 18px rgba(224,33,138,.45)}
+body.light .game{background:linear-gradient(145deg,var(--g1),var(--g2));border:2px solid #fff;box-shadow:0 14px 28px -16px rgba(170,50,120,.55);color:var(--fg)}
+body.light .game small{opacity:.75}
+body.light .tapHint{color:#6b5a66}
+body.light #arcade::before{opacity:.25}
+body.t-rose[data-scene]{--a1:#ffffff;--a2:#ffd7b0}
+body.t-sea[data-scene]{--a1:#fff3b0;--a2:#ff9fc4}
+body.t-frost[data-scene]{--a1:#bff4ff;--a2:#ffd1f0}
+body.t-velvet[data-scene]{--a1:#ff5c7a;--a2:#ffb36b}
+
+body{--fg:#fff;--ts:rgba(40,10,80,.45);--ts2:rgba(0,0,0,.35);--g1:rgba(255,255,255,.2);--g2:rgba(255,140,210,.08);--gb:rgba(255,255,255,.3);
+  --card1:#5c34a0;--card2:#963480;--cardfg:#fff;--sea1:#3b2a86;--sea2:#160c3c;--orb:#fff8ec;--orbglow:rgba(255,200,235,.55);
+  --glow1:rgba(255,110,190,.55);--glow2:rgba(170,60,200,.25);--snow:#fff;--snowb:transparent;--starA:1}
+body.t-velvet{--s1:#16020a;--s2:#3a0614;--s3:#6d0f27;--s4:#a8283d;--a1:#ff5c7a;--a2:#ffb36b;
+  --g1:rgba(255,220,220,.18);--g2:rgba(255,90,110,.08);--gb:rgba(255,200,200,.32);--card1:#7a0f2a;--card2:#c0254a;--sea1:#5a0c22;--sea2:#16020a;
+  --orb:#fff1d2;--orbglow:rgba(255,180,120,.5);--glow1:rgba(255,120,90,.5);--glow2:rgba(200,30,60,.25);--ts:rgba(60,0,10,.5)}
+body.t-rose{--fg:#5a1f35;--ts:rgba(255,255,255,.7);--ts2:rgba(255,255,255,.6);--s1:#fbd9e4;--s2:#f8cad6;--s3:#f7d6c6;--s4:#fbe9cc;--a1:#ffffff;--a2:#ffd7b0;
+  --g1:rgba(255,255,255,.62);--g2:rgba(255,255,255,.32);--gb:rgba(255,255,255,.95);--card1:#e27a95;--card2:#c9496e;--sea1:#efb2c4;--sea2:#d98aa3;
+  --orb:#fff7dc;--orbglow:rgba(255,215,150,.6);--glow1:rgba(255,226,170,.75);--glow2:rgba(255,190,200,.35);--snow:#fff;--snowb:rgba(220,120,150,.6);--starA:0}
+body.t-sea{--fg:#4a1830;--ts:rgba(255,255,255,.6);--ts2:rgba(255,255,255,.55);--s1:#ff7f8f;--s2:#ffa58c;--s3:#ffd09a;--s4:#9fe3df;--a1:#fff3b0;--a2:#ff9fc4;
+  --g1:rgba(255,255,255,.55);--g2:rgba(255,255,255,.28);--gb:rgba(255,255,255,.9);--card1:#ff6f8b;--card2:#ff9a6b;--sea1:#5fcfd0;--sea2:#2b8fae;
+  --orb:#fff4c4;--orbglow:rgba(255,190,90,.6);--glow1:rgba(255,236,170,.7);--glow2:rgba(255,160,130,.3);--snow:#fff;--snowb:rgba(255,120,120,.5);--starA:0}
+body.t-frost{--fg:#3b2a6a;--ts:rgba(255,255,255,.7);--ts2:rgba(255,255,255,.6);--s1:#a9a7ef;--s2:#cfc7f7;--s3:#e9dcfa;--s4:#fdf6ff;--a1:#bff4ff;--a2:#ffd1f0;
+  --g1:rgba(255,255,255,.6);--g2:rgba(255,255,255,.3);--gb:rgba(255,255,255,.95);--card1:#8c7be8;--card2:#c28ae0;--sea1:#b8b2f2;--sea2:#8e86dc;
+  --orb:#ffffff;--orbglow:rgba(220,210,255,.7);--glow1:rgba(255,255,255,.8);--glow2:rgba(210,190,255,.4);--snow:#fff;--snowb:rgba(120,100,220,.55);--starA:.35}
+body.t-rose .btn.ghost,body.t-sea .btn.ghost,body.t-frost .btn.ghost{color:var(--fg);border-color:rgba(0,0,0,.12)}
+.btn{color:#fff}
+
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="4" seed="3" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+<div id="sky"><div class="aurora"></div><div class="aurora b"></div><div class="glow"></div></div>
+<canvas id="fx"></canvas>
+
+<!-- COUNTDOWN -->
+<section id="countdown" class="screen center">
+  
+  <div style="position:relative">
+    <div class="eyebrow">something is waiting for you</div>
+    <h1 class="h1" style="margin-top:10px">Not yet, <span style="color:var(--peony)">princess</span></h1>
+    <div class="cd" id="cdClock" aria-label="countdown">
+      <div class="glass"><b id="cdD">0</b><span>days</span></div>
+      <div class="glass"><b id="cdH">0</b><span>hrs</span></div>
+      <div class="glass"><b id="cdM">0</b><span>min</span></div>
+      <div class="glass"><b id="cdS">0</b><span>sec</span></div>
+    </div>
+    <p class="sub">Come back at midnight on the 24th.<br>No peeking. Hades is watching.</p>
+  </div>
+</section>
+
+<!-- PIN -->
+<section id="lock" class="screen center hidden">
+  <div class="eyebrow">a tiny door, made just for you</div>
+  <h1 class="h1" style="font-size:34px;margin-top:8px" id="lockTitle">Enter the code 🦋</h1>
+  <div class="dots" id="dots"><i></i><i></i><i></i><i></i></div>
+  <div class="msg" id="lockMsg"></div>
+  <div class="pad" id="pad"></div>
+  <div class="hades">
+    <button id="hadesHint" aria-label="Hades hint"><svg width="64" height="64" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="50" cy="60" rx="30" ry="26" fill="#5b4d41" stroke="none" stroke-width="1.2"/><path d="M25 40 L15 15 L38 32 Z" fill="#3a3029"/><path d="M75 40 L85 15 L62 32 Z" fill="#7d6f62"/><path d="M52 32 C68 34 82 46 80 62 C72 60 62 56 56 46 Z" fill="#8a7a6b"/><path d="M20 60 C22 48 30 44 36 46 C34 54 30 62 20 60 Z" fill="#7b6b5d"/><ellipse cx="50" cy="68" rx="13" ry="9" fill="#a89886"/><path d="M50 34 L50 44 M42 36 L44 44 M58 36 L56 44" stroke="#2a2018" stroke-width="2.4" stroke-linecap="round"/><path d="M22 54 L30 56 M22 60 L30 60 M78 54 L70 56" stroke="#2a2018" stroke-width="2" stroke-linecap="round" opacity="0.7"/><path d="M25 40 L20 22 L34 33 Z" fill="#e3bfb4"/><path d="M75 40 L80 22 L66 33 Z" fill="#e3bfb4"/><circle cx="38" cy="55" r="4.5" fill="#1b1410"/><circle cx="62" cy="55" r="4.5" fill="#1b1410"/><circle cx="39.6" cy="53.6" r="1.4" fill="#fff"/><circle cx="63.6" cy="53.6" r="1.4" fill="#fff"/><path d="M46 64 Q50 68 54 64" stroke="#122b1c" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M30 63 L18 60 M30 66 L17 66 M30 69 L19 72" stroke="#3a3029" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/><path d="M70 63 L82 60 M70 66 L83 66 M70 69 L81 72" stroke="#3a3029" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/><circle cx="34" cy="60" r="4" fill="#ffb3cb" opacity="0.7"/><circle cx="66" cy="60" r="4" fill="#ffb3cb" opacity="0.7"/></svg></button>
+    <span>Hades · tap for hint</span>
+    <div id="hintBubble"></div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section id="intro" class="screen hidden">
+  <canvas id="heart"></canvas>
+  <div class="introText">
+    <div class="ignite" id="igniteText"></div>
+    <div class="tapHint" id="tapHint">tap anywhere to light it up</div>
+    <div class="bigHB" id="bigHB">
+      <h1 class="h1 hb20">Happy 20th,<br><span class="glowName">my princess</span></h1>
+      <button class="btn" id="enterBtn" style="margin-top:22px">open your birthday</button>
+    </div>
+  </div>
+</section>
+
+<!-- HOME -->
+<section id="home" class="screen hidden">
+  
+  
+  <div class="page wrap" style="z-index:2">
+    <div class="center" style="padding:0">
+      <div class="eyebrow">24 December, and you are twenty</div>
+      <h1 class="h1" style="margin-top:8px">Happy birthday,<br><span class="nick" id="nick">my loveeee</span></h1>
+      <p class="sub">Everything here was made only for you. Tap anything.</p>
+      <div class="days" id="daysAlive"></div>
+    </div>
+    <div class="tiles">
+      <button class="tile glass wide" data-go="poems"><span class="em">📜</span><b>Poetry corner</b><small>31 poems, all written for you</small></button>
+      <button class="tile glass" data-go="cake"><span class="em">🎂</span><b>Cake & candles</b><small>20 candles to blow out</small></button>
+      <button class="tile glass" data-go="arcade"><span class="em">🕹️</span><b>Your arcade</b><small>games + prizes</small></button>
+      <button class="tile glass" data-go="desserts"><span class="em">🍰</span><b>Dessert table</b><small>all of it, on me</small></button>
+      <button class="tile glass" data-go="things"><span class="em">🌅</span><b>20 things</b><small>one for every year</small></button>
+      <button class="tile glass" data-go="ticket"><span class="em">🎫</span><b>Someday ticket</b><small>gate opens soon</small></button>
+      <button class="tile glass" data-go="cats"><span class="em">🐾</span><b>Hades & Percy</b><small>they have something to say</small></button>
+      <button class="tile glass wide" data-go="letter"><span class="em">💌</span><b>A letter for you</b><small>save this one for last</small></button>
+    </div>
+    <a class="record glass" href="https://www.youtube.com/results?search_query=dusk+till+dawn+zayn" target="_blank" rel="noopener">
+      <span class="vinyl"></span>
+      <span><b style="font-family:var(--display);font-size:18px">Dusk Till Dawn</b><br><small style="opacity:.8">Zayn · the song that feels like you</small></span>
+    </a>
+  </div>
+</section>
+
+<!-- POEMS -->
+<section id="poems" class="screen hidden">
+  
+  <div class="page wrap">
+    <div class="center" style="padding:0">
+      <div class="eyebrow">poetry corner</div>
+      <h1 class="h1" style="font-family:var(--hand);font-weight:700;font-size:48px">Har nazm bas aapke liye</h1>
+      <p class="sub">Tap a scrap to unfold it.</p>
+    </div>
+    <div class="scraps" id="scraps"></div>
+  </div>
+</section>
+
+<!-- ARCADE -->
+<section id="arcade" class="screen hidden">
+  <div class="page wrap">
+    <div class="center" style="padding:0">
+      <h1 class="neon">Ishu's<br>Arcade</h1>
+      <div class="tickets glass">🎟️ <span id="ticketCount">0</span> prize tickets</div>
+    </div>
+    <div class="games" id="games">
+      <button class="game" data-game="balloons"><span class="em">🎈</span><b>Balloon Pop</b><small>one hides a prize</small></button>
+      <button class="game" data-game="scratch"><span class="em">🪙</span><b>Scratch Card</b><small>scratch to win</small></button>
+      <button class="game" data-game="fireworks"><span class="em">🎆</span><b>Firework Show</b><small>tap the sky</small></button>
+      <button class="game" data-game="catch"><span class="em">🍫</span><b>Catch the Desserts</b><small>dodge the wet socks</small></button>
+      <button class="game" data-game="percy"><span class="em">🐈‍⬛</span><b>Percy's Big Jump</b><small>he jumps really high</small></button>
+      <button class="game" data-game="claw"><span class="em">🧸</span><b>Claw Machine</b><small>grab a prize</small></button>
+    </div>
+    <div id="stageWrap"></div>
+  </div>
+</section>
+
+<!-- DESSERTS -->
+<section id="desserts" class="screen hidden">
+  <div class="awning"></div>
+  <div class="page wrap">
+    <div class="center" style="padding:0">
+      <div class="eyebrow">Ishu's patisserie</div>
+      <h1 class="h1">The dessert table</h1>
+      <p class="sub">You said "all the desserts I can't normally afford". So pick everything.</p>
+    </div>
+    <div class="menu" id="menu"></div>
+    <div class="table">
+      <b style="font-family:var(--display);font-size:18px">Your table</b>
+      <div class="plates" id="plates"><small style="font-size:13px;opacity:.6">tap desserts to serve them here</small></div>
+      <div class="bill" id="bill"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 20 THINGS -->
+<section id="things" class="screen hidden">
+  <div class="sea-sun"></div><div class="waves"></div>
+  <div class="page wrap">
+    <div class="center" style="padding:0">
+      <div class="eyebrow">twenty for twenty</div>
+      <h1 class="h1">20 things I love about you</h1>
+      <p class="sub">Tap the card for the next one.</p>
+    </div>
+    <div class="stack" id="stack"></div>
+    <div class="center" style="padding:16px 0 0"><button class="btn ghost" id="thingsAgain" style="display:none">start again</button></div>
+  </div>
+</section>
+
+<!-- TICKET -->
+<section id="ticket" class="screen hidden">
+  <div class="plane">✈️</div>
+  <div class="page wrap">
+    <div class="center" style="padding:0">
+      <div class="eyebrow">boarding pass</div>
+      <h1 class="h1">Someday, Venice</h1>
+      <p class="sub">Two seats, side by side. The date is still being written.</p>
+    </div>
+    <div id="passes"></div>
+  </div>
+</section>
+
+<!-- CAKE -->
+<section id="cake" class="screen hidden">
+  <div class="bunting" id="bunting"></div>
+  <div id="cakeBalloons"></div>
+  <div class="page wrap">
+    <div class="center" style="padding:20px 0 0">
+      <div class="eyebrow">half red velvet · half chocolate</div>
+      <h1 class="h1">Make a wish, honeyy</h1>
+      <p class="sub" id="cakeMsg">Tap each flame to blow it out, or use your mic and actually blow.</p>
+    </div>
+    <div class="cakeBox"><svg id="cakeSvg" viewBox="0 0 340 300"></svg></div>
+    <div class="center" style="padding:14px 0 0;gap:10px;flex-direction:row;flex-wrap:wrap">
+      <button class="btn" id="micBtn">🎤 blow with mic</button>
+      <button class="btn ghost" id="relight">light them again</button>
+    </div>
+  </div>
+</section>
+
+<!-- CATS -->
+<section id="cats" class="screen hidden">
+  <div class="rug"></div>
+  <div class="page wrap">
+    <div class="center" style="padding:0">
+      <div class="eyebrow">a message from the cats</div>
+      <h1 class="h1">Hades & Percy</h1>
+      <p class="sub">Tap them. Percy has been practising.</p>
+    </div>
+    <div class="catRow">
+      <div class="cat"><div class="say" id="hadesSay"></div><button id="hadesBtn" aria-label="Hades"><svg width="130" height="130" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="50" cy="60" rx="30" ry="26" fill="#5b4d41" stroke="none" stroke-width="1.2"/><path d="M25 40 L15 15 L38 32 Z" fill="#3a3029"/><path d="M75 40 L85 15 L62 32 Z" fill="#7d6f62"/><path d="M52 32 C68 34 82 46 80 62 C72 60 62 56 56 46 Z" fill="#8a7a6b"/><path d="M20 60 C22 48 30 44 36 46 C34 54 30 62 20 60 Z" fill="#7b6b5d"/><ellipse cx="50" cy="68" rx="13" ry="9" fill="#a89886"/><path d="M50 34 L50 44 M42 36 L44 44 M58 36 L56 44" stroke="#2a2018" stroke-width="2.4" stroke-linecap="round"/><path d="M22 54 L30 56 M22 60 L30 60 M78 54 L70 56" stroke="#2a2018" stroke-width="2" stroke-linecap="round" opacity="0.7"/><path d="M25 40 L20 22 L34 33 Z" fill="#e3bfb4"/><path d="M75 40 L80 22 L66 33 Z" fill="#e3bfb4"/><circle cx="38" cy="55" r="4.5" fill="#1b1410"/><circle cx="62" cy="55" r="4.5" fill="#1b1410"/><circle cx="39.6" cy="53.6" r="1.4" fill="#fff"/><circle cx="63.6" cy="53.6" r="1.4" fill="#fff"/><path d="M46 64 Q50 68 54 64" stroke="#122b1c" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M30 63 L18 60 M30 66 L17 66 M30 69 L19 72" stroke="#3a3029" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/><path d="M70 63 L82 60 M70 66 L83 66 M70 69 L81 72" stroke="#3a3029" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/><circle cx="34" cy="60" r="4" fill="#ffb3cb" opacity="0.7"/><circle cx="66" cy="60" r="4" fill="#ffb3cb" opacity="0.7"/></svg></button><b>Hades</b><small>independent, unbothered</small></div>
+      <div class="cat"><div class="say" id="percySay"></div><button id="percyBtn" aria-label="Percy"><svg width="130" height="130" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="50" cy="60" rx="30" ry="26" fill="#ffffff" stroke="#e8e2dc" stroke-width="1.2"/><path d="M25 40 L15 15 L38 32 Z" fill="#1d1d22"/><path d="M75 40 L85 15 L62 32 Z" fill="#1d1d22"/><path d="M50 34 C64 34 78 44 79 58 C70 56 60 50 50 34 Z" fill="#1d1d22"/><path d="M25 40 L20 22 L34 33 Z" fill="#ffd3e0"/><path d="M75 40 L80 22 L66 33 Z" fill="#ffd3e0"/><circle cx="38" cy="55" r="4.5" fill="#122b1c"/><circle cx="62" cy="55" r="4.5" fill="#122b1c"/><circle cx="39.6" cy="53.6" r="1.4" fill="#fff"/><circle cx="63.6" cy="53.6" r="1.4" fill="#fff"/><path d="M46 64 Q50 68 54 64" stroke="#122b1c" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M30 63 L18 60 M30 66 L17 66 M30 69 L19 72" stroke="#55555c" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/><path d="M70 63 L82 60 M70 66 L83 66 M70 69 L81 72" stroke="#55555c" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/><circle cx="34" cy="60" r="4" fill="#ffb3cb" opacity="0.7"/><circle cx="66" cy="60" r="4" fill="#ffb3cb" opacity="0.7"/></svg></button><b>Percy</b><small>clingy, jumps very high</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- LETTER -->
+<section id="letter" class="screen hidden">
+  <div class="page wrap">
+    <div class="center" style="padding:0">
+      <div class="eyebrow">handwritten, like you asked</div>
+      <h1 class="h1" style="font-family:var(--script)">For you</h1>
+    </div>
+    <div class="envelope" id="envelope">
+      <div class="body"></div><div class="flap"></div><div class="seal">N</div>
+      <div class="envWords">fun, reliable, comfy</div>
+    </div>
+    <p class="sub center" id="envHint" style="padding:12px 0">tap the seal to open</p>
+    <div id="letterOut"></div>
+  </div>
+</section>
+
+<script>
+const POEMS = [{"id":"pehli-guftagu","title":"Pehli Guftagu","lines":["Yaad hai mujhe woh pehli guftagu, jab sab kuch badal sa gaya tha,","Meri hansi laut aayi thi, aur har gham jaise kahin kho sa gaya tha.","","Tum meri zindagi mein aayi toh sukoon apne saath le aayi,","Bas tumhara hona hi meri har adhuri khushi poori kar laayi."]},{"id":"kami","title":"Tumhari Kami","lines":["Aaj tumhari kami kuch zyada hi mehsoos hui","Phir bhi dil ko bas tumhari khushi hi manzoor hui","","Har waqt mera saath dena zaroori nahi hota","Bas itna jaan lo main hamesha yahin hota","","Jab bhi thak jao bas mere paas laut aana","Main har dafa wahi milunga jahan tum chorr jaana","","Tum har pal agar mazboot na b ban sakti","Mere paas aa kar bas apni si reh sakti"]},{"id":"bina-bulaaye","title":"Bina Bulaaye","lines":["Kitna yaad karta hoon tumhein yeh lafzon mein kahaan aa paata hai","Dil ka har ehsaas aakhir tum tak hi pahunch jaata hai","","Tumhein yaad karne ko mujhe koi waja suna aata hai","Tumhara khayal bina bulaaye har roz aa jaata hai","","So chehre mere saamne hon dil tumhein hi dhoondta jaata hai","Har lamha meri yaadon ko tum tak hi le jaata hai","","Tumhara sukoon meri har bechaini ko mita jaata hai","Tumhara saath meri har andheri shaam saja jaata hai","","Jidhar bhi dekhta hoon bas tumhara hi aks nazar aata hai","Meri poori duniya ka har raasta tum tak hi aa jaata hai"]},{"id":"main-likhun","title":"Main Likhun Tumhein","lines":["Main har subah tera intezaar karta rahoon","Har shaam tera hi khayaal karta rahoon","Har khushi har gham mein tera saath chahta rahoon","Har dua mein bas tera hi naam rakhta rahoon","Aakhri saans tak mera vaada yahi rahay","Mera dil sirf tera hi ghar bana rahay","Phir jab likha jaaye meri zindagi ka aakhri safha","Tera zikr hi uska sabse haseen hissa rahay"]},{"id":"har-dafa","title":"Har Dafa Tum","lines":["Hazaar raaste saamne aa bhi jaayen to kya hoga","Dil ne har dafa tumhein hi chuna hoga","","Har faisle mein tumhara hi naam aayega","Mera dil har dafa tumhein hi chaahega","","Waqt badlega magar mera faisla nahi badlega","Dil har dafa tum par hi aa kar thehrega","","Har dafa har jagah bas tumhein hi chununga","Mohabbat ho ya zindagi bas tumhein hi chununga","","Dil ka faisla kabhi badla nahi karta","Sacha iraada raasta badla nahi karta"]},{"id":"har-jagah","title":"Har Jagah Tum","lines":["Ab har geet mein bas tera hi zikr sunai deta hai","Har khwaab mein bas tera hi chehra dikhai deta hai","","Har soch mein bas tera hi khayal sama jata hai","Har pal mein bas tera hi ehsaas nazar aata hai","","Har raah mein bas tera hi saath mehsoos hota hai","Har jagah mein bas tera hi noor mehsoos hota hai","","Jidhar bhi dekhun bas tu hi tu nazar aati hai","Meri har duniya mein bas teri yaad sama jaati hai"]},{"id":"chaand","title":"Chaand Door Hoke Bhi","lines":["Ajeeb tha ke tum nazar nahi aayi phir bhi saath hi rahi","Har saans mein har soch mein bas tum hi basi rahi","","Lafz na mile ke tumhari tareef kaise karun main","Bas itna sach hai ke tumhari fikr har dua mein karun main","","Chaand door hoke bhi har raat roshni de jaata hai","Tumhara ehsaas bhi har roz dil ko sukoon de jaata hai"]},{"id":"bharosa","title":"Bharosa","lines":["Bas itni si dua hai ek din itna yaqeen ho jaaye","Meri har baat par tumhara dil maan jaaye","","Duniya kuch bhi kahe phir bhi tum muskura diya karo","Sabse pehle meri baat ko ek dafa sun liya karo","","Main chahta hoon hamare darmiyan itna aitbaar ho","Har uljhan se pehle bas ek doosre se guftagu har baar ho","","Mera har lafz tumhein sukoon aur yaqeen de jaaye","Hamara yeh aitbaar har guzarte din aur gehra ho jaaye"]},{"id":"jaisi-ho","title":"Jaisi Ho, Waisi Hi","lines":["Tum jaisi ho mere liye waisay hi haseen ho","Mere dil ki har dua ki sabsay pyaari zameen ho","","Waqt badlay ya mausam badlay farq kabhi aata nahi","Dil jis se qurbat karay uskay beech kuch aata nahi","","Meri nazron mein tum har dafa wahi noor laati ho","Har naye din ke saath aur bhi haseen nazar aati ho","","Jo dil ko apna ghar lage woh badalta hi nahi","Mere liye tumse khoobsurat koi lagta hi nahi"]},{"id":"raat","title":"Raat Ki Khamoshi","lines":["Raat ki khamoshi mein tumse baat karna acha lagta hai","Har guzarta lamha tumhare saath aur pyara lagta hai","Neend aankhon mein ho phir bhi dil rukna nahi chahta","Tumse baat karta rahoon bas yahi dil chahta","Subah ka pata hi nahi chalta tumse baat karte karte","Waqt bhi thehar sa jaata hai tumse baat karte karte","Yeh raatain aur yeh baatein hamesha yaad rahegi","Tumhare saath guzri har ghari dil mein zinda rahegi"]},{"id":"hansi","title":"Tumhari Hansi","lines":["Jab tum mere paas hoti ho har lamha haseen ho jaata hai","Tumhari muskaan se mera poora jahaan roshan ho jaata hai","","Tumhari khushi dekh kar dil ko sukoon sa mil jaata hai","Har udaas sa ehsaas kahin door chala jaata hai","","Mujhe apni khushi se pehle tumhari hansi pyari lagti hai","Tum muskura do to meri har dua poori lagti hai","","Tumhare saath har din ek haseen kahani ban jaata hai","Meri chhoti si duniya ka har rang nikhar jaata hai"]},{"id":"saaya","title":"Umr Bhar Ka Saaya","lines":["Main pal bhar ki roshni ban kar nahi aaya hoon","Main umr bhar ka saaya ban kar aaya hoon","","Khushi ho ya gham main badalne wala nahi","Main har safar mein tumhara saath nibhane aaya hoon","","Main aaj hoon to kal bhi yahin nazar aaunga","Har mushkil mein tumhara hausla ban jaaunga","","Waqt chahe kitni hi aazmaish likh de","Main har imtihaan mein tumhare saath nibhaunga"]},{"id":"ghunghraale","title":"Ghunghraale Baal","lines":["Tumhari aankhen dil ko har dafa beqaraar kar jaati hain","Tumhari muskaan rooh ko har dafa gulzaar kar jaati hai","Tumhare ghunghraale baal hawaon se baatein karte hain","Dil ki saari raahon ko tum tak hi laa kar rakhte hain","Tumhein dekh kar har dafa dua labon tak aa jaati hai","Tumhari har ek ada dil mein utar si jaati hai","Tum sirf haseen nahi meri sabse pyari dua lagti ho","Har dafa tum pehli dafa se bhi zyada haseen lagti ho"]},{"id":"shayad","title":"Shayad Tumhein Pata Nahi","lines":["Shayad tumhein andaaza nahi meri duniya kitni badal jaati hai","Bas tumhari maujoodgi se meri duniya muskura jaati hai","","Shayad tumhein ehsaas nahi meri har khushi tum se jud jaati hai","Bas tumhari ek muskaan se meri har udaasi mit jaati hai","","Shayad tumhein khabar nahi tum meri har dua ban jaati ho","Bas meri har soch ka aakhir tum hi hissa ban jaati ho","","Shayad tumhein pata nahi tum meri duniya kitni haseen bana deti ho","Bas apni maujoodgi se meri har kami poori kar deti ho"]},{"id":"dastak","title":"Pehli Si Dastak","lines":["Har roz tumse baat karne ko dil beqaraar rehta hai","Tumhara ek paighaam hi dil ka intezaar rehta hai","","Jab din yunhi guzar gaya dil udaas sa rehta hai","Bina tumhari baaton ke sab kuch adhoora sa rehta hai","","Na shikwa hai na gila bas itni si tamanna rehti hai","Kabhi tumhari taraf se bhi pehli si dastak rehti hai"]},{"id":"dhaal","title":"Dhaal","lines":["Tumhari maujoodgi dil ko ajeeb sa sukoon de jaati hai","Jaise meri har talaash tum par aa kar ruk jaati hai","","Tumhare paas aa kar har bechaini simat si jaati hai","Jaise meri rooh ko apni manzil mil jaati hai","","Na jaane kyun tumhare saath hi ghar sa mehsoos hota hai","Har darr har bojh dil se khud hi door sa hota hai","","Bas dil yahi chahta hai har khushi tum tak laata rahu","Har dukh k saamne umr bhar tumhari dhaal ban jaata rahu"]},{"id":"tareef","title":"Tareef","lines":["Tumhari tareef ka har lafz adhoora sa lagta hai","Tumhein dekh kar har alfaaz chhota sa lagta hai","","Tumhari aankhon mein chaand ka ujala sa lagta hai","Tumhari muskaan mein poora savera sa lagta hai","","Tumhari har ek ada dil ko pyaari si lagti hai","Tumhari har ek baat sabse nyaari si lagti hai","","Khuda ne tumhein kis nazakat se banaya hoga","Har khubsoorat khwaab ko tum jaisa banaya hoga"]},{"id":"intezaar","title":"Intezaar","lines":["Intezaar bhi kitni khoobsurat si baat lagti hai","Jab har aane wali ghadi tumhari mulaqaat lagti hai","","Har guzarta lamha ek nayi umeed de jaata hai","Dil ko tumhare aur qareeb kar jaata hai","","Na jaldi ki khwahish hai na waqt se koi shikayat hai","Tum tak jo le aaye bas usi intezaar ki riwayat hai","","Ulfat sirf milne ka naam nahi hota hai","Kabhi khoobsurat tareen ehsaas bhi intezaar hi hota hai"]},{"id":"ghar","title":"Ghar","lines":["Tumhare paas aa kar har bechaini tham si jaati hai","Jaise meri har talaash aakhir tum par aa kar ruk jaati hai","","Tum sirf ek shakhs nahi mera sukoon ban jaati ho","Is bheed bhari duniya mein meri chhoti si duniya ban jaati ho","","Har safar ka aakhir tum tak hi raasta nikal aata hai","Tumhare paas aa kar hi dil ko ghar mil jaata hai"]},{"id":"andaaz","title":"Har Andaaz","lines":["Jab bhi dil gehraiyon mein doobne lag jaata hai","Tumhari awaaz sun kar phir sambhal sa jaata hai","","Tumhari ek baat se har bojh halka ho jaata hai","Mera udaas sa dil phir muskura sa jaata hai","","Khoobsurti sirf chehre tak tumhari simti nahi hai","Har soch har ada mein bhi wahi roshni basi hai","","Chehra bhi haseen hai aur dil bhi haseen lagta hai","Tumhara har andaaz mujhe sabse haseen lagta hai"]},{"id":"fate","title":"Fate Knew the Script","lines":["I lost my way and prayed one night","God sent her and made things right","","Her heart is kind in every way","She spreads joy through every day","","She loves each soul and love each stray","She shows she cares in quiet small way","","I saw her eyes and there was a spark","She lit my mind right through the dark","","A playful soul and an ethereal smile","One good talk keeps me smiling a while","","It's kind of crazy how we clicked","Like fate already knew the script","","She always knows my thoughts before I speak","Like we've been close for years not weeks"]},{"id":"sadiyon","title":"Sadiyon Tak","note":"It's all in the eyes and when i saw those it was something different","lines":["Har waqt woh saath meray sab hi iraado may","Kuch pal may shaamil hogyi woh meri yaado may","","Husn uska itna k meri duniya ruk jati hai","Dekhta rehta usko aur yaad abhi aati hai","","Ankhay uski aisi k sadio dekhta rahu may","Dekh kar unko hamesha likhta rahu may","","Himmat nahi mujh may k usko yeh batau may","Koshish ab karta kay kaabil ban jau may","","Ajab baat hai mujhay samajh nahi ati hai","Jaisay may sochta usko wesi soch ati hai","","Najanay yeh haqeeqat , ya meray khayalaat hai","Bolta nahi usko mujhko lagtay meray jazbaat hai","","Batau usko kesay par woh kareeb tareen lagti hai","Uskay paas aanay say dunya rangeen tareen lagti hai"]},{"id":"qeemat","title":"Apni Qeemat","note":"This one's for you , you might not understand this but here it goes","lines":["Hota kuch bhi zindagi mein uske paas jaata hoon","Us se bhi koi poochhe, kya usko yaad aata hoon?","","Kia mehsoos karti hai woh may nahi jaanta","Aakhir tak tum na milo, yeh main nahi maanta","","Yeh sab jo horha hai likha hua hai magar","Naseeb may woh aik mulaqat hai agar","","Guzar raha hai waqt, magar kab tak yeh intezaar?","Ruk jau hamesha k liay par dil kiu hai bezaar","","May b bikhra hu dara hua hu aik suroor say","Khatra hai par ajab sukoon bhi is fitoor say","","Ab jo bhi ho aik naam hamesha saath hai","Jitna bhi waqt saath, hamesha khaas hai","","Ek maqsad hai ke Nafay agar na bhi saath ho,","Usko khud se mohabbat ho, apni qeemat ka ehsaas ho"]},{"id":"kitaab","title":"Khuli Kitaab","lines":["Chaand say muqaabla nahi k uspr daagh hai","Saada alfaaz kahu toh dil uska baagh hai","","Hai yeh haqeeqat ya nazro ka kamaal hai","Likh leta itna kesay mera yeh sawaal hai","","Aisay waqt par aayi kia yeh qudrat ka kamaal hai","Ayi woh aisay aur buray waqt ka zawaal hai","","Jaane jo bhi hoga sab naseeb ka hisaab hai","Sab kuch bata deti kiu k khuli woh kitaab hai","","Uskay saath baat kr k haseen sab kuch lagta hai","Uskay har jawaab say dil ajab hi dharakta hai"]},{"id":"aadat","title":"Aadat","note":"Some things I'd not like to admit but it is what it is","lines":["Raat ko jaag kar uski yaad aati hai","Uski doori ab mujhay sataati hai","","Aadat woh meri kuch pal mein hai ban gayi","Khaali si yeh zindagi meri usse hi saj gayi","","Ajab sa jaadu uski har baat may","Khush hojata uskay sirf saath may","","Uski har guftugu say kesay sukoon mil jaata hai","Woh masoom si hasi sunkr waqt bhi muskuraata hai","","Tu nazuk si rooh hai, yeh baat dil se maanta hoon","May tujhay thora bhi dukh denay say ghabraata hu"],"outro":["Just these few lines and I'd say","When she smiles and her eyes light up they ignite a spark in my heart that only grows brighter until we're talking."]},{"id":"mumkin","title":"Mumkin Si Dastak","lines":["Uski sirf umeed bhi kisi aur ki haqeeqat se pyari hai","Woh na bhi milay phir bhi uski mumkin si dastak hi meri duniya saari hai","","Uski hansi ka ek lamha meri saari udaasi pe bhaari hai","Mere liye har khushi se badh kar uski muskurahat hi pyari hai"]},{"id":"bemisaal","title":"Be-Misaal","lines":["Teri har baat mein ek alag si roshni nazar aati hai.","Teri soch ki gehraai har roz mujhe aur bhi bhaati hai.","","Teri sachchai ka noor har jhooth se alag pehchaan ban jaata hai.","Tera har lafz dil se nikal kar seedha dil tak aa jaata hai.","","Bezubaanon ke liye jo dard tere dil mein utar aata hai.","Wohi teri rooh ko sabse khoobsurat insaan bana jaata hai.","","Masoom sa andaaz aur tera har ehsaas tu be-misaal lagti hai.","Ishu, tujhe jitna jaanun, utni hi tu kamaal lagti hai."]},{"id":"princess","title":"Request To Thy Princess","lines":["Ab tumhare bina zindagi ka khayal bhi adhoora sa lagta hai","Har naya din bas tumhare saath hi poora sa lagta hai","","Roz mere paas aaya karo, apne din ki har baat bataya karo","Khushi ho ya gham, bina soche sab kuch sunaya karo","","Jo tumhein pasand hai, jo tumhein bilkul pasand nahi, sab mujhe bataya karo","Apne har khwaab, har shauq aur har ehsaas se mujhe milwaya karo","","Main har roz tumhein thoda aur samajhna chahta hoon","Har guzarte din tumse aur qareeb hona chahta hoon"]},{"id":"hum","title":"Yeh \"Hum\"","lines":["Agar kabhi meri yaadasht bhi tumhara naam bhool jaaye,","Mera dil phir bhi har dhadkan mein tum tak hi laut aaye.","","Tumhari yaad se har roz haar jaata hoon, yeh haar mujhe qabool hai,","Tumhari kami har pal mehsoos hoti hai, aur yeh ehsaas bhi qabool hai.","","Main kabhi nahi chahta ke yeh \"hum\" kabhi khatam ho jaaye,","Har naya din bas isi dua ke saath guzar jaaye.","","Meri zindagi ki sabse khoobsurat cheez bas yeh rishta hi rahe,","Har dua mein bas yahi ho... yeh \"hum\" hamesha yunhi rahe."]},{"id":"farishton-se","title":"Farishton Se","lines":["Jab umr meri aakhri safar par aa jaayegi","Tumhari yaad phir bhi dil mein muskuraayegi","","Farishton se bas itni si ek baat kahunga main","Ek haseen si rooh se kabhi mila tha main","","Uski aankhon mein poori meri duniya basi thi","Uski muskaan mein meri har khushi basi thi","","Woh shayad na jaane kitni azeez meray liay thi","Itna kahu may meri har nazm bas usi ke liye thi"]},{"id":"uska-naam","title":"Uska Naam Hai","lines":["Har roz meri har soch ka pehla naam bas uska hi hota hai","Har naya din bhi tere hi khayaalon se roshan hota hai","","Teri hansi ki mithaas ko alfaazon mein bayaan karna mumkin nahi hota hai","Bas use sunte hi dil mein ek naya sa jahaan roshan hota hai","","Har khwaab ki raah aakhir aa kar tere hi paas ruk jaati hai","Meri har dua bhi bas tere naam par aa kar tham jaati hai","","Kaash har sakhti se pehle main hi teri deewaar ban jaaun","Har dard se pehle apni baahon mein tujhe mehfooz bana jaaun","","Har lamha jo tere saath guzra, meri rooh mein utar jaata hai","Waqt guzar bhi jaaye, woh kabhi dil se nahi jaata hai","","Jo pooche \"Yeh har lafz kis ke naam hai?\"","Bas muskura dena... Aik uska naam hai"]}];
+const $ = (s, el = document) => el.querySelector(s), $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const rand = (a, b) => a + Math.random() * (b - a);
+const HADES_SM = `<svg width="64" height="64" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="50" cy="60" rx="30" ry="26" fill="#5b4d41" stroke="none" stroke-width="1.2"/><path d="M25 40 L15 15 L38 32 Z" fill="#3a3029"/><path d="M75 40 L85 15 L62 32 Z" fill="#7d6f62"/><path d="M52 32 C68 34 82 46 80 62 C72 60 62 56 56 46 Z" fill="#8a7a6b"/><path d="M20 60 C22 48 30 44 36 46 C34 54 30 62 20 60 Z" fill="#7b6b5d"/><ellipse cx="50" cy="68" rx="13" ry="9" fill="#a89886"/><path d="M50 34 L50 44 M42 36 L44 44 M58 36 L56 44" stroke="#2a2018" stroke-width="2.4" stroke-linecap="round"/><path d="M22 54 L30 56 M22 60 L30 60 M78 54 L70 56" stroke="#2a2018" stroke-width="2" stroke-linecap="round" opacity="0.7"/><path d="M25 40 L20 22 L34 33 Z" fill="#e3bfb4"/><path d="M75 40 L80 22 L66 33 Z" fill="#e3bfb4"/><circle cx="38" cy="55" r="4.5" fill="#1b1410"/><circle cx="62" cy="55" r="4.5" fill="#1b1410"/><circle cx="39.6" cy="53.6" r="1.4" fill="#fff"/><circle cx="63.6" cy="53.6" r="1.4" fill="#fff"/><path d="M46 64 Q50 68 54 64" stroke="#122b1c" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M30 63 L18 60 M30 66 L17 66 M30 69 L19 72" stroke="#3a3029" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/><path d="M70 63 L82 60 M70 66 L83 66 M70 69 L81 72" stroke="#3a3029" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/><circle cx="34" cy="60" r="4" fill="#ffb3cb" opacity="0.7"/><circle cx="66" cy="60" r="4" fill="#ffb3cb" opacity="0.7"/></svg>`;
+
+/* ---------- paper texture (crumpled, generated once) ---------- */
+(function () {
+  // old, fist-crumpled paper with burnt edges, rendered once as an image so scrolling stays smooth
+  function paper(w, h, seed, burn) {
+    const m = 14;
+    return `<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}' viewBox='0 0 ${w} ${h}' preserveAspectRatio='none'>
+<defs>
+<filter id='r' x='-4%' y='-4%' width='108%' height='108%'><feTurbulence type='fractalNoise' baseFrequency='0.035' numOctaves='4' seed='${seed}' result='n'/><feDisplacementMap in='SourceGraphic' in2='n' scale='${burn * .9}' xChannelSelector='R' yChannelSelector='G'/></filter>
+<filter id='c' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='${(6 / w).toFixed(4)} ${(9 / h).toFixed(4)}' numOctaves='5' seed='${seed + 7}'/><feDiffuseLighting lighting-color='#fbeccb' surfaceScale='3.2'><feDistantLight azimuth='50' elevation='50'/></feDiffuseLighting></filter>
+<filter id='b'><feGaussianBlur stdDeviation='${burn * .55}'/></filter>
+<filter id='sp'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='${seed + 3}'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .2  0 0 0 0 .08  0 0 0 -2.4 1.25'/></filter>
+<clipPath id='k'><rect x='${m}' y='${m}' width='${w - 2 * m}' height='${h - 2 * m}' rx='3'/></clipPath>
+<radialGradient id='st' cx='.3' cy='.3' r='.5'><stop offset='0' stop-color='#8a5a20' stop-opacity='.16'/><stop offset='1' stop-color='#8a5a20' stop-opacity='0'/></radialGradient>
+</defs>
+<g filter='url(#r)'><g clip-path='url(#k)'>
+<rect width='${w}' height='${h}' fill='#e8d0a0'/>
+<rect width='${w}' height='${h}' filter='url(#c)' style='mix-blend-mode:multiply'/>
+<rect width='${w}' height='${h}' fill='url(#st)'/>
+<rect width='${w}' height='${h}' filter='url(#sp)' opacity='.35'/>
+<rect x='${m}' y='${m}' width='${w - 2 * m}' height='${h - 2 * m}' fill='none' stroke='#4a2208' stroke-width='${burn * 2.2}' filter='url(#b)' opacity='.85'/>
+<rect x='${m}' y='${m}' width='${w - 2 * m}' height='${h - 2 * m}' fill='none' stroke='#1e0b02' stroke-width='${burn * .5}' filter='url(#b)'/>
+</g></g></svg>`;
+  }
+  const url = svg => `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}")`;
+  document.documentElement.style.setProperty('--scrapImg', url(paper(320, 190, 4, 16)));
+  document.documentElement.style.setProperty('--sheetImg', url(paper(560, 900, 9, 26)));
+})();
+
+(function () {
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='700' height='900'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='0.011 0.016' numOctaves='5' seed='11'/><feDiffuseLighting lighting-color='#f6e6c4' surfaceScale='3.4'><feDistantLight azimuth='50' elevation='52'/></feDiffuseLighting></filter><rect width='100%' height='100%' filter='url(#c)'/></svg>`;
+  document.documentElement.style.setProperty('--paper', `url("data:image/svg+xml,${encodeURIComponent(svg)}") center/cover`);
+})();
+
+function stars(el, n) {
+  for (let i = 0; i < n; i++) {
+    const s = document.createElement('i');
+    s.style.cssText = `left:${Math.random() * 100}%;top:${Math.random() * 100}%;animation-delay:${-Math.random() * 3}s;animation-duration:${2 + Math.random() * 3}s;opacity:${rand(.3, 1)}`;
+    if (Math.random() < .15) { s.style.width = s.style.height = '3px'; }
+    el.appendChild(s);
+  }
+}
+
+
+
+/* ---------- sky: stars and slow snow ---------- */
+(function () {
+  const sky = $('#sky');
+  for (let i = 0; i < 90; i++) { const s = document.createElement('i'); s.className = i % 4 ? 'st' : 'st tw'; s.style.cssText = `left:${rand(0, 100)}%;top:${rand(0, 75)}%;opacity:${rand(.35, 1)};animation-delay:${-rand(0, 4)}s;animation-duration:${rand(2.4, 5)}s`; if (Math.random() < .15) s.style.width = s.style.height = '3px'; sky.appendChild(s); }
+  for (let i = 0; i < 18; i++) { const f = document.createElement('i'); f.className = 'sn'; const z = rand(2, 5); f.style.cssText = `left:${rand(0, 100)}%;width:${z}px;height:${z}px;animation-duration:${rand(10, 20)}s;animation-delay:${-rand(0, 20)}s;--dx:${rand(-40, 40)}px;opacity:${rand(.35, .85)}`; sky.appendChild(f); }
+})();
+
+/* ---------- fireworks engine (shared) ---------- */
+const fx = $('#fx'), fctx = fx.getContext('2d');
+let parts = [], fxRaf = 0, DPR = Math.min(devicePixelRatio || 1, 2);
+function sizeFx() { fx.width = innerWidth * DPR; fx.height = innerHeight * DPR; fx.style.width = innerWidth + 'px'; fx.style.height = innerHeight + 'px'; }
+sizeFx(); addEventListener('resize', sizeFx);
+const PALETTES = [['#ff7eb0', '#ffd6e6', '#fff'], ['#f6c33b', '#ffe08a', '#fff'], ['#ff3b5c', '#ff9eb3', '#fff'], ['#c084fc', '#f7a1c4', '#fff']];
+function firework(x, y, big = 1) {
+  const pal = PALETTES[Math.floor(Math.random() * PALETTES.length)];
+  const n = Math.round(70 * big);
+  for (let i = 0; i < n; i++) {
+    const a = (i / n) * Math.PI * 2 + rand(-.05, .05), sp = rand(2, 6.5) * big;
+    parts.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: 1, decay: rand(.010, .018), c: pal[i % pal.length], s: rand(1.4, 2.6) });
+  }
+  for (let i = 0; i < 14 * big; i++) parts.push({ x, y, vx: rand(-1, 1), vy: rand(-1, 1), life: 1, decay: .03, c: '#fff', s: 3 });
+  if (!fxRaf) fxRaf = requestAnimationFrame(fxLoop);
+}
+function rocket(tx, ty) {
+  const x = tx + rand(-30, 30), y = innerHeight + 10;
+  parts.push({ x, y, vx: (tx - x) / 50, vy: (ty - y) / 50, life: 1, decay: .02, c: '#ffe08a', s: 2.2, rocket: true, tx, ty });
+  if (!fxRaf) fxRaf = requestAnimationFrame(fxLoop);
+}
+function confetti(n = 120) {
+  const cols = ['#ff7eb0', '#f6c33b', '#ff3b5c', '#fff', '#f7a1c4'];
+  for (let i = 0; i < n; i++) parts.push({ x: rand(0, innerWidth), y: rand(-200, -10), vx: rand(-1, 1), vy: rand(2, 5), life: 1, decay: .004, c: cols[i % 5], s: rand(4, 8), conf: true, rot: rand(0, 6) });
+  if (!fxRaf) fxRaf = requestAnimationFrame(fxLoop);
+}
+function fxLoop() {
+  fctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  fctx.clearRect(0, 0, innerWidth, innerHeight);
+  fctx.globalCompositeOperation = 'lighter';
+  const next = [];
+  for (const p of parts) {
+    if (p.rocket) {
+      p.x += p.vx; p.y += p.vy; p.life -= p.decay;
+      fctx.fillStyle = p.c; fctx.globalAlpha = 1; fctx.beginPath(); fctx.arc(p.x, p.y, p.s, 0, 7); fctx.fill();
+      if (p.life <= 0.02 || p.y <= p.ty) { firework(p.x, p.y, 1); continue; }
+      next.push(p); continue;
+    }
+    if (p.conf) {
+      fctx.globalCompositeOperation = 'source-over';
+      p.x += p.vx + Math.sin(p.y / 30); p.y += p.vy; p.rot += .1; p.life -= p.decay;
+      fctx.save(); fctx.translate(p.x, p.y); fctx.rotate(p.rot); fctx.globalAlpha = Math.min(1, p.life * 2); fctx.fillStyle = p.c; fctx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); fctx.restore();
+      fctx.globalCompositeOperation = 'lighter';
+      if (p.life > 0 && p.y < innerHeight + 20) next.push(p); continue;
+    }
+    p.vx *= .975; p.vy = p.vy * .975 + .06; p.x += p.vx; p.y += p.vy; p.life -= p.decay;
+    if (p.life <= 0) continue;
+    fctx.globalAlpha = p.life; fctx.fillStyle = p.c;
+    fctx.beginPath(); fctx.arc(p.x, p.y, p.s * (0.6 + p.life * .6), 0, 7); fctx.fill();
+    next.push(p);
+  }
+  fctx.globalAlpha = 1; fctx.globalCompositeOperation = 'source-over';
+  parts = next;
+  fxRaf = parts.length ? requestAnimationFrame(fxLoop) : (fctx.clearRect(0, 0, innerWidth, innerHeight), 0);
+}
+function show(n = 6) { for (let i = 0; i < n; i++) setTimeout(() => rocket(rand(innerWidth * .15, innerWidth * .85), rand(innerHeight * .12, innerHeight * .45)), i * 280); }
+
+/* ---------- sparkles where she touches ---------- */
+addEventListener('pointerdown', e => {
+  if (e.target.closest('button,a,.stage,canvas,.scratch,.modal,#cakeSvg,.envelope,input')) return;
+  const cols = ['#fff', '#ffe08a', '#ffc2e0'];
+  for (let i = 0; i < 12; i++) { const a = i / 12 * Math.PI * 2; parts.push({ x: e.clientX, y: e.clientY, vx: Math.cos(a) * rand(1, 2.6), vy: Math.sin(a) * rand(1, 2.6), life: 1, decay: .035, c: cols[i % 3], s: rand(1.2, 2) }); }
+  if (!fxRaf) fxRaf = requestAnimationFrame(fxLoop);
+}, { passive: true });
+
+/* ---------- navigation ---------- */
+function go(id) {
+  if (id === 'poems') parts = parts.filter(p => !p.conf);
+  document.body.dataset.scene = id; if (id !== 'intro') document.body.classList.remove('lit');
+  $$('.screen').forEach(s => s.classList.add('hidden'));
+  const el = $('#' + id); el.classList.remove('hidden'); el.scrollTop = 0;
+  const pg = $('.page', el); if (pg) { pg.classList.remove('page-in'); void pg.offsetWidth; pg.classList.add('page-in'); }
+  $$('.back').forEach(b => b.remove());
+  if (!['countdown', 'lock', 'intro', 'home'].includes(id)) {
+    const b = document.createElement('button'); b.className = 'back glass'; b.textContent = '← home'; b.onclick = () => go('home'); el.appendChild(b);
+  }
+  if (window['on_' + id]) window['on_' + id]();
+}
+$$('[data-go]').forEach(b => b.addEventListener('click', () => go(b.dataset.go)));
+
+/* ---------- countdown (Chattogram time, UTC+6) ---------- */
+const TARGET = Date.parse('2026-12-24T00:00:00+06:00');
+let cdTimer;
+function tick() {
+  let ms = Math.max(0, TARGET - Date.now());
+  if (ms === 0) { clearInterval(cdTimer); go('lock'); return; }
+  const d = Math.floor(ms / 864e5); ms -= d * 864e5; const h = Math.floor(ms / 36e5); ms -= h * 36e5; const m = Math.floor(ms / 6e4); const s = Math.floor((ms - m * 6e4) / 1e3);
+  $('#cdD').textContent = d; $('#cdH').textContent = String(h).padStart(2, '0'); $('#cdM').textContent = String(m).padStart(2, '0'); $('#cdS').textContent = String(s).padStart(2, '0');
+}
+tick(); cdTimer = setInterval(tick, 1000);
+
+/* keypad builder */
+function keypad(el, len, onDone) {
+  let code = '', busy = false;
+  const dots = el.dots;
+  el.pad.innerHTML = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', '⌫'].map(k => k ? `<button class="key glass" data-k="${k}">${k}</button>` : '<span></span>').join('');
+  const paint = () => $$('i', dots).forEach((d, i) => d.classList.toggle('on', i < code.length));
+  el.pad.onclick = e => {
+    const b = e.target.closest('.key'); if (!b || busy) return;
+    const k = b.dataset.k;
+    if (k === '⌫') code = code.slice(0, -1); else if (code.length < len) code += k;
+    paint();
+    if (code.length === len) {
+      busy = true;
+      onDone(code, ok => {
+        dots.classList.add(ok ? 'good' : 'bad');
+        setTimeout(() => { dots.classList.remove('good', 'bad'); if (!ok) { code = ''; paint(); } busy = false; }, ok ? 600 : 450);
+      });
+    }
+  };
+}
+
+/* secret override: tap the clock 5 times, then 2411 */
+let taps = 0, tapT;
+$('#cdClock').addEventListener('click', () => {
+  taps++; clearTimeout(tapT); tapT = setTimeout(() => taps = 0, 1500);
+  if (taps >= 5) {
+    taps = 0;
+    const m = document.createElement('div'); m.className = 'modal';
+    m.innerHTML = `<div class="glass center" style="padding:26px 18px;border-radius:26px"><div class="eyebrow">nafay only</div><div class="dots"><i></i><i></i><i></i><i></i></div><div class="pad"></div><button class="skip" style="margin-top:16px">close</button></div>`;
+    document.body.appendChild(m);
+    $('.skip', m).onclick = () => m.remove();
+    keypad({ dots: $('.dots', m), pad: $('.pad', m) }, 4, (c, done) => { const ok = c === '2411'; done(ok); if (ok) setTimeout(() => { m.remove(); clearInterval(cdTimer); go('lock'); }, 500); });
+  }
+});
+
+/* PIN 1124 */
+let wrong = 0;
+keypad({ dots: $('#dots'), pad: $('#pad') }, 4, (c, done) => {
+  const ok = c === '1124'; done(ok);
+  if (ok) { $('#lockMsg').textContent = 'Welcome in, princess'; setTimeout(() => go('intro'), 700); }
+  else { wrong++; $('#lockMsg').textContent = ["Hmm, not quite. Try again 🦋", "That's not it, princess", "So close. (Not really.)", "Psst. Ask Hades."][(wrong - 1) % 4]; }
+});
+const HINTS = ['Hint: two birthdays, squished into one code. 🎂', 'Just the days, princess. His first, then yours. 🦋'];
+let hi = 0;
+$('#hadesHint').onclick = () => { $('#hintBubble').innerHTML = `<div class="bubble">${HINTS[hi++ % HINTS.length]}</div>`; };
+
+/* ---------- intro: grey particles become the heart ---------- */
+const hc = $('#heart'), hx = hc.getContext('2d');
+let P = [], lit = false, litT = 0, introRaf = 0, W, H;
+let HG = { scale: 10, cy: 200 };
+function sizeHeart() {
+  W = innerWidth; H = innerHeight; hc.width = W * DPR; hc.height = H * DPR;
+  const textTop = $('.introText').getBoundingClientRect().top || H * .62;
+  const top = Math.max(56, H * .07), room = textTop - top - 22;
+  const scale = Math.max(4, Math.min(W * .84 / 34, room / (29 * 1.07)));
+  HG = { scale, cy: top + 12.5 * scale * 1.07 };
+}
+addEventListener('resize', () => { if (!$('#intro').classList.contains('hidden')) sizeHeart(); });
+function heartXY(t) { return [16 * Math.sin(t) ** 3, -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t))]; }
+function initHeart() {
+  sizeHeart();
+  const N = W < 500 ? 1300 : 2200;
+  P = [];
+  for (let i = 0; i < N; i++) {
+    const t = Math.random() * Math.PI * 2, [x, y] = heartXY(t);
+    const edge = Math.random() < .55 ? rand(.92, 1.05) : 1 - Math.pow(Math.random(), 1.6) * .9;
+    P.push({ hx: x * edge, hy: y * edge, x: rand(0, W), y: rand(0, H), vx: rand(-.3, .3), vy: rand(-.3, .3), d: rand(0, 1), len: rand(2, 9), c: Math.random() < .25 ? [255, 214, 230] : Math.random() < .5 ? [255, 126, 176] : [230, 40, 90], w: rand(.6, 1.6) });
+  }
+}
+function heartLoop(now) {
+  hx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  hx.clearRect(0, 0, W, H);
+  const scale = HG.scale, cx = W / 2, cy = HG.cy;
+  const beat = lit ? 1 + .055 * Math.pow(Math.max(0, Math.sin(now / 1000 * Math.PI * 1.25)), 12) + .02 * Math.sin(now / 900) : 1;
+  const k = lit ? Math.min(1, (now - litT) / 2600) : 0;
+  hx.globalCompositeOperation = lit ? 'lighter' : 'source-over';
+  for (const p of P) {
+    const pk = Math.max(0, Math.min(1, (k - p.d * .45) / .55)), e = pk < .5 ? 2 * pk * pk : 1 - Math.pow(-2 * pk + 2, 2) / 2;
+    const tx = cx + p.hx * scale * beat, ty = cy + p.hy * scale * beat;
+    if (!lit || e < 1) { p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > W) p.vx *= -1; if (p.y < 0 || p.y > H) p.vy *= -1; }
+    const x = p.x + (tx - p.x) * e, y = p.y + (ty - p.y) * e;
+    const g = 140, col = p.c.map(v => Math.round(g + (v - g) * e));
+    hx.strokeStyle = `rgba(${col[0]},${col[1]},${col[2]},${.35 + .45 * e})`;
+    hx.lineWidth = p.w;
+    const ang = Math.atan2(y - cy, x - cx), l = p.len * (.4 + e);
+    hx.beginPath(); hx.moveTo(x, y); hx.lineTo(x + Math.cos(ang) * l, y + Math.sin(ang) * l); hx.stroke();
+  }
+  hx.globalCompositeOperation = 'source-over';
+  introRaf = requestAnimationFrame(heartLoop);
+}
+function typeText(el, html, speed = 70, done) {
+  const tmp = document.createElement('div'); tmp.innerHTML = html; const full = tmp.textContent; let i = 0;
+  el.classList.add('typing');
+  (function step() { i++; el.textContent = full.slice(0, i); if (i < full.length) setTimeout(step, speed); else { el.innerHTML = html; el.classList.remove('typing'); done && done(); } })();
+}
+window.on_intro = () => {
+  lit = false; initHeart(); cancelAnimationFrame(introRaf); introRaf = requestAnimationFrame(heartLoop);
+  $('#intro').classList.remove('lit'); $('#tapHint').classList.remove('hidden'); $('#bigHB').classList.remove('show'); $('#igniteText').textContent = '';
+  $('#intro').onclick = () => {
+    if (lit) return; lit = true; litT = performance.now(); $('#intro').classList.add('lit'); document.body.classList.add('lit'); $('#tapHint').classList.add('hidden');
+    setTimeout(() => typeText($('#igniteText'), 'ignite my love, <span class="spark">ignite.</span>', 85, () => {
+      setTimeout(() => { show(7); $('#bigHB').classList.add('show'); }, 500);
+    }), 1700);
+  };
+};
+$('#enterBtn').onclick = e => { e.stopPropagation(); cancelAnimationFrame(introRaf); go('home'); };
+
+/* ---------- home ---------- */
+(function () {
+  const nicks = ['my loveeee', 'my princess', 'honeyy', 'honnnn', 'loveyyy'], nk = $('#nick'); let n = 0;
+  setInterval(() => { nk.style.opacity = 0; setTimeout(() => { n = (n + 1) % nicks.length; nk.textContent = nicks[n]; nk.style.opacity = 1; }, 400); }, 2600);
+  const born = Date.parse('2006-12-24T00:00:00+06:00'), days = Math.floor((Date.now() - born) / 864e5);
+  $('#daysAlive').textContent = `${days.toLocaleString()} days of you so far. Best ones yet.`;
+})();
+window.on_home = () => { if (!window._homeFw) { window._homeFw = 1; setTimeout(() => confetti(90), 300); } };
+
+/* ---------- poems ---------- */
+(function () {
+  const box = $('#scraps');
+  POEMS.forEach((p, i) => {
+    const b = document.createElement('button'); b.className = 'scrap'; b.style.setProperty('--r', `${rand(-4, 4).toFixed(1)}deg`);
+    b.innerHTML = `<span class="num">${i + 1}</span><span>${p.title}</span>`;
+    b.onclick = () => openPoem(i); box.appendChild(b);
+  });
+})();
+function openPoem(i) {
+  const p = POEMS[i]; $$('.modal.poem').forEach(m => m.remove());
+  const m = document.createElement('div'); m.className = 'modal poem';
+  const lines = p.lines.map(l => l ? `<p class="pline">${l}</p>` : '<div class="pgap"></div>').join('');
+  const out = p.outro ? `<div class="pout">${p.outro[0]}<br>${p.outro[1].replace('ignite a spark', '<span class="glow">ignite a spark</span>')}</div>` : '';
+  m.innerHTML = `<div class="paperWrap"><div class="paper"><button class="close" aria-label="close">×</button>${p.note ? `<p class="pnote">${p.note}</p>` : ''}<h2 class="ptitle">${p.title}</h2>${lines}${out}<div class="pnav"><button data-d="-1">${i > 0 ? '← pichli' : ''}</button><button data-d="1">${i < POEMS.length - 1 ? 'agli →' : ''}</button></div></div></div>`;
+  document.body.appendChild(m);
+  $$('.pline', m).forEach((l, j) => setTimeout(() => l.classList.add('in'), 650 + j * 260));
+  $('.close', m).onclick = () => m.remove();
+  m.addEventListener('click', e => { if (e.target === m) m.remove(); });
+  $$('.pnav button', m).forEach(b => b.onclick = () => { const j = i + +b.dataset.d; if (j >= 0 && j < POEMS.length) openPoem(j); });
+}
+
+/* ---------- arcade ---------- */
+const COUPONS = [
+  'One long call. No time limit, no "okay I should sleep".',
+  'You pick the movie. I watch it without a single complaint.',
+  'I lose the next argument. Officially. In writing.',
+  'A poem written only for that day. You pick the topic.',
+  '24 hours of me calling you princess in every single message.',
+  'Unlimited roasting rights for a full day. I cannot fight back.',
+  'A playlist made only for you, with a note for every song.',
+  'Good morning texts waiting for you every day for a week.',
+  'One "I told you so" that I have to accept with a smile.',
+  'I watch the show you are obsessed with, all of it.',
+  'A long text, the kind you love, whenever you ask.',
+  'A surprise. You do not get to know what. Just redeem it.'
+];
+let tickets = 0, cIdx = 0;
+function giveCoupon(extra = '') {
+  tickets++; $('#ticketCount').textContent = tickets;
+  const c = COUPONS[cIdx++ % COUPONS.length];
+  const m = document.createElement('div'); m.className = 'modal';
+  m.innerHTML = `<div class="coupon"><div class="eyebrow" style="opacity:.8">coupon · valid forever</div><h3>You won!</h3><p style="margin:0;font-size:16px;line-height:1.45">${c}</p><p style="font-family:var(--hand);font-size:20px;margin:14px 0 0">— redeem with Nafay</p>${extra}<button class="btn" style="margin-top:16px">keep it</button></div>`;
+  document.body.appendChild(m); confetti(60);
+  $('.btn', m).onclick = () => m.remove();
+}
+$$('.game[data-game]').forEach(g => g.onclick = () => startGame(g.dataset.game));
+let gameStop = () => {};
+function startGame(id) {
+  gameStop(); const w = $('#stageWrap'); w.innerHTML = '';
+  ({ balloons, scratch, fireworks: fwShow, catch: catchGame, percy: percyGame, claw: clawGame })[id](w);
+  setTimeout(() => w.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+}
+function balloons(w) {
+  w.innerHTML = `<div class="stage" id="bstage"><div class="stageBar"><span>🎈 popped: <b id="bp">0</b>/20</span><span>find the gold one</span></div></div>`;
+  const st = $('#bstage'), cols = ['#ff3b5c', '#ff7eb0', '#f7a1c4', '#b3123a', '#ffd6e6'];
+  let popped = 0, alive = true, timers = [];
+  const gold = Math.floor(rand(4, 16));
+  for (let i = 0; i < 20; i++) {
+    timers.push(setTimeout(() => {
+      if (!alive) return;
+      const b = document.createElement('div'); b.className = 'balloon';
+      const isGold = i === gold;
+      b.style.background = isGold ? 'radial-gradient(circle at 35% 30%,#fff3b0,#f6c33b 60%,#b8860b)' : `radial-gradient(circle at 35% 30%,rgba(255,255,255,.5),${cols[i % 5]} 55%)`;
+      b.style.left = rand(4, 82) + '%';
+      const dur = rand(5.5, 8.5), sway = rand(-30, 30);
+      b.animate([{ transform: 'translate(0,0)' }, { transform: `translate(${sway}px,-${st.clientHeight + 160}px)` }], { duration: dur * 1000, easing: 'linear' }).onfinish = () => { if (b.isConnected) { b.remove(); maybeEnd(); } };
+      b.onpointerdown = e => {
+        const r = b.getBoundingClientRect(); firework(r.left + r.width / 2, r.top + r.height / 2, .45); b.remove(); popped++; $('#bp').textContent = popped;
+        if (isGold) giveCoupon(); maybeEnd();
+      };
+      st.appendChild(b);
+    }, i * 650));
+  }
+  function maybeEnd() { if (!$('.balloon', st) && timers.length && Date.now() - start > 20 * 650) { setTimeout(() => { if (!$('.balloon', st)) st.insertAdjacentHTML('beforeend', `<div class="center" style="position:absolute;inset:0"><b style="font-size:20px">${popped}/20 popped</b><button class="btn" style="margin-top:14px" onclick="startGame('balloons')">again</button></div>`); }, 300); } }
+  const start = Date.now();
+  gameStop = () => { alive = false; timers.forEach(clearTimeout); };
+}
+function scratch(w) {
+  const c = COUPONS[cIdx % COUPONS.length];
+  w.innerHTML = `<div class="scratch"><div class="under">${c}</div><canvas></canvas></div><p class="sub center" style="padding:10px 0">scratch with your finger</p>`;
+  const cv = $('.scratch canvas', w), box = cv.parentElement, ctx = cv.getContext('2d');
+  cv.width = box.clientWidth * DPR; cv.height = box.clientHeight * DPR; ctx.scale(DPR, DPR);
+  const g = ctx.createLinearGradient(0, 0, box.clientWidth, box.clientHeight); g.addColorStop(0, '#c0c0c8'); g.addColorStop(.5, '#f2f2f6'); g.addColorStop(1, '#a8a8b2');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, box.clientWidth, box.clientHeight);
+  ctx.fillStyle = '#6a6a78'; ctx.font = '600 18px Poppins'; ctx.textAlign = 'center'; ctx.fillText('scratch me, princess', box.clientWidth / 2, box.clientHeight / 2 + 6);
+  ctx.globalCompositeOperation = 'destination-out';
+  let down = false, done = false;
+  const pt = e => { const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+  cv.onpointerdown = e => { down = true; cv.setPointerCapture(e.pointerId); draw(e); };
+  cv.onpointermove = e => down && draw(e);
+  cv.onpointerup = () => { down = false; check(); };
+  function draw(e) { const [x, y] = pt(e); ctx.beginPath(); ctx.arc(x, y, 22, 0, 7); ctx.fill(); }
+  function check() {
+    if (done) return; const d = ctx.getImageData(0, 0, cv.width, cv.height).data; let clear = 0;
+    for (let i = 3; i < d.length; i += 64) if (d[i] === 0) clear++;
+    if (clear / (d.length / 64) > .5) { done = true; cv.style.transition = 'opacity .6s'; cv.style.opacity = 0; giveCoupon(); }
+  }
+  gameStop = () => {};
+}
+function fwShow(w) {
+  w.innerHTML = `<div class="stage" id="fstage" style="background:linear-gradient(#05000f,#1a0030)"><div class="stageBar"><span>tap anywhere in the sky</span><span id="fcount">0</span></div></div>`;
+  let n = 0; const st = $('#fstage');
+  st.onpointerdown = e => { firework(e.clientX, e.clientY, 1); n++; $('#fcount').textContent = n; if (n === 20) { show(8); setTimeout(() => giveCoupon(), 1400); } };
+  gameStop = () => {};
+}
+window.on_arcade = () => { $('#stageWrap').innerHTML = ''; gameStop(); };
+
+/* ---------- shared bits for the canvas games ---------- */
+const emoCache = {};
+function emo(e, size) {
+  const k = e + size; if (emoCache[k]) return emoCache[k];
+  const c = document.createElement('canvas'); c.width = c.height = size * 1.3 * DPR;
+  const x = c.getContext('2d'); x.scale(DPR, DPR); x.font = `${size}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`; x.textAlign = 'center'; x.textBaseline = 'middle';
+  x.fillText(e, size * .65, size * .7); return (emoCache[k] = c);
+}
+function stageCanvas(st) {
+  const cv = document.createElement('canvas'); cv.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;touch-action:none';
+  st.appendChild(cv); const W = st.clientWidth, H = st.clientHeight; cv.width = W * DPR; cv.height = H * DPR;
+  const ctx = cv.getContext('2d'); ctx.scale(DPR, DPR); return { cv, ctx, W, H };
+}
+function overlay(st, title, sub, btn, onGo) {
+  $$('.gover', st).forEach(o => o.remove());
+  const o = document.createElement('div'); o.className = 'gover';
+  o.innerHTML = `<b>${title}</b><small>${sub}</small><button class="btn">${btn}</button>`;
+  st.appendChild(o); $('.btn', o).onclick = e => { e.stopPropagation(); o.remove(); onGo(); };
+}
+
+/* ---------- catch the desserts ---------- */
+function catchGame(w) {
+  w.innerHTML = `<div class="stage" id="cstage"><div class="stageBar"><span>🍰 <b id="cs">0</b>/20</span><span id="cl">❤️❤️❤️</span></div></div>`;
+  const st = $('#cstage'), { cv, ctx, W, H } = stageCanvas(st);
+  const GOOD = ['🍰', '🧁', '🍫', '🍩', '🍪', '🍨', '🍓', '🧇'], BAD = ['🧦', '👕'];
+  let px = W / 2, items = [], score = 0, lives = 3, raf = 0, last = 0, spawn = 0, won = false, running = false;
+  const move = e => { const r = cv.getBoundingClientRect(); px = Math.max(36, Math.min(W - 36, e.clientX - r.left)); };
+  cv.addEventListener('pointerdown', e => { if (running) { cv.setPointerCapture(e.pointerId); move(e); } });
+  cv.addEventListener('pointermove', move);
+  function hearts() { $('#cl').textContent = '❤️'.repeat(lives) + '🤍'.repeat(3 - lives); }
+  function start() { items = []; score = 0; lives = 3; won = false; $('#cs').textContent = 0; hearts(); running = true; last = performance.now(); spawn = 0; cancelAnimationFrame(raf); raf = requestAnimationFrame(loop); }
+  function loop(now) {
+    const dt = Math.min(40, now - last) / 16.7; last = now;
+    spawn -= dt; if (spawn <= 0) { const bad = Math.random() < .22; items.push({ x: rand(24, W - 24), y: -30, vy: rand(2.2, 3.4) + score * .06, e: bad ? BAD[Math.floor(Math.random() * 2)] : GOOD[Math.floor(Math.random() * GOOD.length)], bad }); spawn = Math.max(18, 42 - score); }
+    ctx.clearRect(0, 0, W, H);
+    const py = H - 46;
+    for (const it of items) {
+      it.y += it.vy * dt;
+      if (!it.hit && it.y > py - 22 && it.y < py + 10 && Math.abs(it.x - px) < 46) {
+        it.hit = true;
+        if (it.bad) { lives--; hearts(); const r = cv.getBoundingClientRect(); firework(r.left + it.x, r.top + it.y, .25); if (lives <= 0) return end(false); }
+        else { score++; $('#cs').textContent = score; if (score === 20 && !won) { won = true; return end(true); } }
+      }
+      if (!it.hit) ctx.drawImage(emo(it.e, 34), it.x - 22, it.y - 22, 44, 44);
+    }
+    items = items.filter(i => !i.hit && i.y < H + 40);
+    ctx.fillStyle = 'rgba(255,255,255,.92)'; ctx.beginPath(); ctx.ellipse(px, py + 8, 44, 11, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = 'rgba(255,126,176,.9)'; ctx.beginPath(); ctx.ellipse(px, py + 8, 30, 6, 0, 0, 7); ctx.fill();
+    raf = requestAnimationFrame(loop);
+  }
+  function end(win) { running = false; cancelAnimationFrame(raf); if (win) { show(4); giveCoupon(); overlay(st, '20 desserts caught', 'all of them are yours', 'play again', start); } else overlay(st, 'Wet socks got you', `${score} desserts caught`, 'try again', start); }
+  overlay(st, 'Catch 20 desserts', 'slide the plate, dodge the wet socks and clothes', 'start', start);
+  gameStop = () => { running = false; cancelAnimationFrame(raf); };
+}
+
+/* ---------- percy's big jump ---------- */
+const PERCY_IMG = new Image(); PERCY_IMG.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(`<svg width="64" height="64" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="50" cy="60" rx="30" ry="26" fill="#ffffff" stroke="#e8e2dc" stroke-width="1.2"/><path d="M25 40 L15 15 L38 32 Z" fill="#1d1d22"/><path d="M75 40 L85 15 L62 32 Z" fill="#1d1d22"/><path d="M50 34 C64 34 78 44 79 58 C70 56 60 50 50 34 Z" fill="#1d1d22"/><path d="M25 40 L20 22 L34 33 Z" fill="#ffd3e0"/><path d="M75 40 L80 22 L66 33 Z" fill="#ffd3e0"/><circle cx="38" cy="55" r="4.5" fill="#122b1c"/><circle cx="62" cy="55" r="4.5" fill="#122b1c"/><circle cx="39.6" cy="53.6" r="1.4" fill="#fff"/><circle cx="63.6" cy="53.6" r="1.4" fill="#fff"/><path d="M46 64 Q50 68 54 64" stroke="#122b1c" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M30 63 L18 60 M30 66 L17 66 M30 69 L19 72" stroke="#55555c" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/><path d="M70 63 L82 60 M70 66 L83 66 M70 69 L81 72" stroke="#55555c" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/><circle cx="34" cy="60" r="4" fill="#ffb3cb" opacity="0.7"/><circle cx="66" cy="60" r="4" fill="#ffb3cb" opacity="0.7"/></svg>`);
+function percyGame(w) {
+  w.innerHTML = `<div class="stage" id="pstage"><div class="stageBar"><span>🐾 <b id="ps">0</b></span><span>tap to jump, tap again mid-air</span></div></div>`;
+  const st = $('#pstage'), { cv, ctx, W, H } = stageCanvas(st);
+  const ground = H - 60, OBS = ['🥒', '🧹', '💧'];
+  let y, vy, jumps, obs, score, speed, raf = 0, last = 0, next, running = false, won = false, t = 0;
+  function jump() { if (!running) return; if (jumps < 2) { vy = jumps ? -12.5 : -15.5; jumps++; } }
+  cv.addEventListener('pointerdown', e => { e.preventDefault(); jump(); });
+  function start() { y = ground; vy = 0; jumps = 0; obs = []; score = 0; speed = 4.6; next = 60; won = false; t = 0; $('#ps').textContent = 0; running = true; last = performance.now(); cancelAnimationFrame(raf); raf = requestAnimationFrame(loop); }
+  function loop(now) {
+    const dt = Math.min(40, now - last) / 16.7; last = now; t += dt;
+    vy += .78 * dt; y += vy * dt; if (y >= ground) { y = ground; vy = 0; jumps = 0; }
+    next -= dt; if (next <= 0) { obs.push({ x: W + 30, e: OBS[Math.floor(Math.random() * OBS.length)], s: rand(34, 44) }); next = rand(70, 120) - Math.min(40, score * 1.5); }
+    speed = 4.6 + score * .12;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = 'rgba(255,255,255,.18)'; ctx.fillRect(0, ground + 30, W, 2);
+    for (let i = 0; i < 6; i++) { const sx = ((i * 97 - t * speed * .5) % (W + 60) + W + 60) % (W + 60) - 30; ctx.fillStyle = 'rgba(255,255,255,.35)'; ctx.fillRect(sx, ground + 40, 18, 2); }
+    for (const o of obs) {
+      o.x -= speed * dt;
+      ctx.drawImage(emo(o.e, o.s), o.x - o.s * .6, ground + 30 - o.s * 1.15, o.s * 1.25, o.s * 1.25);
+      if (!o.passed && o.x < 40) { o.passed = true; score++; $('#ps').textContent = score; if (score === 15 && !won) { won = true; giveCoupon(); show(3); } }
+      const hit = Math.abs(o.x - 70) < o.s * .45 && y + 22 > ground + 30 - o.s * .8;
+      if (hit) return end();
+    }
+    obs = obs.filter(o => o.x > -60);
+    const sq = y >= ground ? 1 + Math.sin(t * .5) * .03 : 1;
+    ctx.save(); ctx.translate(70, y + 30); if (y < ground) ctx.rotate(Math.max(-.5, Math.min(.5, vy * .03))); ctx.scale(1 / sq, sq);
+    if (PERCY_IMG.complete) ctx.drawImage(PERCY_IMG, -32, -60, 64, 64);
+    ctx.restore();
+    raf = requestAnimationFrame(loop);
+  }
+  function end() { running = false; cancelAnimationFrame(raf); overlay(st, 'Percy tripped', `${score} jumps. 15 wins a prize.`, 'again', start); }
+  overlay(st, "Percy's big jump", 'he jumps really high. jump twice for extra high', 'start', start);
+  gameStop = () => { running = false; cancelAnimationFrame(raf); };
+}
+
+/* ---------- claw machine ---------- */
+function clawGame(w) {
+  const P = ['🧸', '🐼', '🌻', '🎀', '🍫', '🌷'];
+  w.innerHTML = `<div class="stage claw" id="kstage"><div class="stageBar"><span>🧸 claw machine</span><span id="ktries">3 tries</span></div>
+    <div class="rail"></div><div class="clawArm" id="arm"><div class="cord"></div><div class="grip">🪝</div></div>
+    <div class="pile" id="pile">${P.map((p, i) => `<span data-i="${i}">${p}</span>`).join('')}</div><div class="chute">prize</div>
+    <button class="btn dropBtn" id="drop">drop the claw</button></div>`;
+  const st = $('#kstage'), arm = $('#arm'), cord = $('.cord', arm), W = st.clientWidth;
+  let x = 40, dir = 1, raf = 0, busy = false, tries = 3, last = performance.now();
+  const items = $$('#pile span');
+  items.forEach((s, i) => { s.style.left = (10 + i * (W - 60) / (P.length - 1)) + 'px'; s.style.transform = `rotate(${rand(-20, 20)}deg)`; });
+  function slide(now) { const dt = Math.min(40, now - last) / 16.7; last = now; if (!busy) { x += dir * 2.6 * dt; if (x > W - 40) dir = -1; if (x < 30) dir = 1; arm.style.transform = `translateX(${x - 20}px)`; } raf = requestAnimationFrame(slide); }
+  raf = requestAnimationFrame(slide);
+  $('#drop').onclick = () => {
+    if (busy || tries <= 0) return; busy = true;
+    const depth = st.clientHeight - 170; cord.style.height = depth + 'px';
+    setTimeout(() => {
+      let best = null, bd = 1e9;
+      items.forEach(s => { if (s.dataset.won) return; const sx = parseFloat(s.style.left) + 22, d = Math.abs(sx - x); if (d < bd) { bd = d; best = s; } });
+      const got = best && bd < 34;
+      if (got) { best.dataset.won = 1; best.classList.add('held'); arm.appendChild(best); best.style.left = '-2px'; best.style.top = (depth + 34) + 'px'; best.style.transform = 'none'; }
+      cord.style.height = '20px'; if (got) best.style.top = '54px';
+      setTimeout(() => {
+        if (got) { busy = 'carry'; arm.style.transition = 'transform 1s ease'; arm.style.transform = 'translateX(4px)'; x = 24;
+          setTimeout(() => { best.remove(); arm.style.transition = ''; firework(st.getBoundingClientRect().left + 40, st.getBoundingClientRect().bottom - 70, .5); giveCoupon(); busy = false; }, 1100);
+        } else { tries--; $('#ktries').textContent = tries ? `${tries} tries left` : 'out of tries'; busy = false;
+          if (!tries) overlay(st, 'So close', 'the claw is rigged. obviously', 'reset', () => clawGame(w)); }
+      }, 900);
+    }, 950);
+  };
+  gameStop = () => cancelAnimationFrame(raf);
+}
+
+/* ---------- desserts ---------- */
+(function () {
+  const D = [['🍰', 'Tiramisu', 'straight from Venice'], ['🧁', 'Red velvet slice', 'you said both'], ['🍫', 'Chocolate lava cake', 'chocolate, duhhh'], ['🍬', 'Macaron tower', 'pink ones only'], ['🍮', 'Crème brûlée', 'tap tap crack'], ['🍨', 'Gelato trio', 'Italian, obviously'], ['🍓', 'Strawberry cheesecake', 'New York style'], ['🧇', 'Belgian waffles', 'with Nutella'], ['🍩', 'Churros', 'chocolate dip included'], ['🍪', 'Ferrero cake', 'the expensive one'], ['🥞', 'Pancake stack', 'syrup waterfall'], ['🍦', 'Sundae', 'ice cream, always']];
+  const menu = $('#menu'), plates = $('#plates'); let count = 0;
+  D.forEach(([e, n, s]) => {
+    const b = document.createElement('button'); b.className = 'dish'; b.innerHTML = `<span class="em">${e}</span><b>${n}</b><small>${s}</small>`;
+    b.onclick = () => {
+      if (!count) plates.innerHTML = '';
+      count++; b.classList.add('added'); const sp = document.createElement('span'); sp.textContent = e; plates.appendChild(sp);
+      $('#bill').textContent = `${count} dessert${count > 1 ? 's' : ''}. Your bill: 0. It's on me.`;
+      const r = b.getBoundingClientRect(); firework(r.left + r.width / 2, r.top + 20, .3);
+    };
+    menu.appendChild(b);
+  });
+})();
+
+/* ---------- 20 things ---------- */
+const THINGS = [
+  "I love how kind you are.",
+  "I love how beautiful you are, in every way possible.",
+  "I love your smile.",
+  "I love your eyes.",
+  "I love the way you think.",
+  "I love how much you love animals.",
+  "I love how genuine you are.",
+  "I love how you make everything better just by being in it.",
+  "I love how you giggle and laugh when something mischievous is going on in your mind.",
+  "I love how you always show up.",
+  "I love how deeply you think.",
+  "I love how deep our conversations go.",
+  "I love how you can do a lot of things and are so multi-talented.",
+  "I love when you tell me about the things you want to do.",
+  "I love when you yap about what you're doing or planning to do.",
+  "I love your creativity.",
+  "I love when you're comfortable enough with me to just be yourself.",
+  "I love how honest you are.",
+  "I love how your laugh makes my whole day lighter.",
+  "I love you, Ishmaira, and every single thing about you."
+];
+let ti = 0;
+function drawThings() {
+  const st = $('#stack'); st.innerHTML = '';
+  THINGS.forEach((t, i) => {
+    if (i < ti - 1 || i > ti + 1) return;
+    const c = document.createElement('div'); c.className = 'thing glass';
+    if (i < ti) c.classList.add('gone'); else if (i > ti) c.classList.add('under');
+    c.style.zIndex = 100 - i; c.innerHTML = `<div class="n">${i + 1}</div><p>${t}</p>`;
+    if (i === ti) c.onclick = () => { if (ti < THINGS.length - 1) { ti++; drawThings(); } else { show(5); $('#thingsAgain').style.display = 'inline-flex'; } };
+    st.appendChild(c);
+  });
+}
+$('#thingsAgain').onclick = () => { ti = 0; $('#thingsAgain').style.display = 'none'; drawThings(); };
+window.on_things = drawThings;
+
+/* ---------- ticket ---------- */
+(function () {
+  const pass = (name, seat, r) => `<div class="pass" style="--r:${r}"><div class="main"><div class="airline"><span>Someday Airways</span><span>First, obviously</span></div><div class="route"><div><b>CGP</b><small>Chattogram</small></div><div class="line"></div><div style="text-align:right"><b>VCE</b><small>Venice</small></div></div><div class="grid4"><div>Passenger<b>${name}</b></div><div>Flight<b>SD 2412</b></div><div>Date<b>SOMEDAY</b></div><div>Gate<b>SOON</b></div></div><div class="barcode"></div></div><div class="stub"><div class="airline" style="justify-content:center">seat</div><div class="seat">${seat}</div><div style="font-size:10px;color:#8a7a90;margin-top:8px;line-height:1.3">next to<br>${name === 'ISHMAIRA' ? 'NAFAY' : 'ISHMAIRA'}</div></div></div>`;
+  $('#passes').innerHTML = pass('ISHMAIRA', '20A', '-1.5deg') + pass('NAFAY', '20B', '1deg') + `<p class="sub center" style="padding:18px 0 0;font-family:var(--hand);font-size:22px">Window's yours. Obviously.</p>`;
+  for (let i = 0; i < 4; i++) { const c = document.createElement('div'); c.className = 'cloud'; c.style.cssText = `top:${rand(5, 80)}%;animation-duration:${rand(30, 55)}s;animation-delay:${-rand(0, 40)}s;transform:scale(${rand(.6, 1.4)})`; $('#ticket').appendChild(c); }
+})();
+
+/* ---------- cake ---------- */
+(function () {
+  const svg = $('#cakeSvg');
+  let s = `<defs><linearGradient id="rv" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#c0223f"/><stop offset="1" stop-color="#7a0c22"/></linearGradient><linearGradient id="ch" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#6b3a1f"/><stop offset="1" stop-color="#3b1d0c"/></linearGradient><radialGradient id="fl" cx=".5" cy=".7" r=".6"><stop offset="0" stop-color="#fff7c2"/><stop offset=".5" stop-color="#ffc83b"/><stop offset="1" stop-color="#ff6a00" stop-opacity="0"/></radialGradient><clipPath id="cakeClip"><rect x="40" y="150" width="260" height="120" rx="14"/></clipPath></defs>`;
+  s += `<ellipse cx="170" cy="278" rx="150" ry="16" fill="rgba(0,0,0,.35)"/><ellipse cx="170" cy="272" rx="148" ry="14" fill="#f5e6d8"/>`;
+  s += `<g clip-path="url(#cakeClip)"><rect x="40" y="150" width="130" height="120" fill="url(#rv)"/><rect x="170" y="150" width="130" height="120" fill="url(#ch)"/><rect x="40" y="200" width="260" height="8" fill="#fff4ea" opacity=".85"/><rect x="40" y="236" width="260" height="6" fill="#fff4ea" opacity=".6"/></g>`;
+  s += `<path d="M40 162 Q40 148 54 148 L286 148 Q300 148 300 162 L300 170 Q290 186 280 170 Q270 192 258 170 Q246 182 234 168 Q222 194 210 170 Q198 184 186 168 Q174 190 162 170 Q150 182 138 168 Q126 194 114 170 Q102 184 90 168 Q78 190 66 170 Q54 184 40 170 Z" fill="#fff4ea"/>`;
+  s += `<text x="170" y="232" text-anchor="middle" font-family="Dancing Script" font-size="26" font-weight="700" fill="#ffd6e6">Ishu · 20</text>`;
+  for (let i = 0; i < 20; i++) {
+    const row = i < 10 ? 0 : 1, col = i % 10, x = 62 + col * 24 + (row ? 12 : 0), y = row ? 128 : 110, h = row ? 26 : 40;
+    const cc = ['#ff7eb0', '#fff', '#f6c33b', '#ffd6e6'][i % 4];
+    s += `<rect x="${x - 4}" y="${y}" width="8" height="${h}" rx="2" fill="${cc}" stroke="rgba(0,0,0,.12)"/><line x1="${x}" y1="${y}" x2="${x}" y2="${y - 6}" stroke="#333" stroke-width="1.5"/><ellipse class="flame" data-i="${i}" cx="${x}" cy="${y - 14}" rx="7" ry="11" fill="url(#fl)"/>`;
+  }
+  svg.innerHTML = s;
+  let out = 0;
+  const blow = f => {
+    if (f.classList.contains('out')) return; f.classList.add('out'); out++;
+    const sm = document.createElementNS('http://www.w3.org/2000/svg', 'circle'); sm.setAttribute('cx', f.getAttribute('cx')); sm.setAttribute('cy', f.getAttribute('cy')); sm.setAttribute('r', 4); sm.setAttribute('fill', 'rgba(220,220,220,.7)'); sm.classList.add('smoke'); svg.appendChild(sm); setTimeout(() => sm.remove(), 1400);
+    if (out === 20) { $('#cakeMsg').textContent = 'All 20. Your wish is on its way, loveyyy.'; show(9); confetti(160); stopMic(); }
+  };
+  svg.addEventListener('pointerdown', e => { const f = e.target.closest('.flame'); if (f) blow(f); });
+  $('#relight').onclick = () => { $$('.flame', svg).forEach(f => f.classList.remove('out')); out = 0; $('#cakeMsg').textContent = 'Tap each flame to blow it out, or use your mic and actually blow.'; };
+  let stream, actx, raf;
+  function stopMic() { cancelAnimationFrame(raf); stream && stream.getTracks().forEach(t => t.stop()); stream = null; $('#micBtn').textContent = '🎤 blow with mic'; }
+  $('#micBtn').onclick = async () => {
+    if (stream) return stopMic();
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      const an = actx.createAnalyser(); an.fftSize = 512; actx.createMediaStreamSource(stream).connect(an);
+      const buf = new Uint8Array(an.fftSize); $('#micBtn').textContent = '🌬️ blow now… (tap to stop)';
+      (function listen() { an.getByteTimeDomainData(buf); let sum = 0; for (const v of buf) sum += (v - 128) ** 2; const rms = Math.sqrt(sum / buf.length);
+        if (rms > 18) { const lit = $$('.flame:not(.out)', svg); for (let k = 0; k < Math.min(lit.length, rms > 35 ? 3 : 1); k++) blow(lit[Math.floor(Math.random() * lit.length)]); }
+        raf = requestAnimationFrame(listen); })();
+    } catch (e) { $('#cakeMsg').textContent = 'Mic not allowed, so tap the flames instead.'; }
+  };
+  window.on_cake = () => {};
+  const bt = $('#bunting'); ['#ff7eb0', '#f6c33b', '#fff', '#ff3b5c', '#f7a1c4', '#f6c33b', '#ff7eb0', '#fff', '#ff3b5c'].forEach((c, i) => { const t = document.createElement('i'); t.style.setProperty('--c', c); t.style.animationDelay = i * .2 + 's'; bt.appendChild(t); });
+  const cb = $('#cakeBalloons'); for (let i = 0; i < 7; i++) { const b = document.createElement('div'); b.className = 'floatB'; b.style.cssText = `left:${rand(0, 92)}%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.5),${['#ff3b5c', '#ff7eb0', '#f6c33b', '#f7a1c4'][i % 4]} 60%);animation-duration:${rand(9, 15)}s;animation-delay:${-rand(0, 12)}s;--dx:${rand(-60, 60)}px`; cb.appendChild(b); }
+})();
+
+/* ---------- cats ---------- */
+(function () {
+  const H = ['Happy birthday. I suppose.', "I'm not saying I'm glad you exist. But I'm not not saying it.", 'This is me being affectionate. Take it or leave it.', 'Fine. You can pet me. Once. Because it is your birthday.'];
+  const P = ['MAMA IT IS YOUR BIRTHDAAAY', 'I practised this jump all year for you', 'Can I have cake. Please. Mama. Please.'];
+  let h = 0, p = 0;
+  $('#hadesBtn').onclick = () => { $('#hadesSay').innerHTML = `<div class="bubble">${H[h++ % H.length]}</div>`; };
+  $('#percyBtn').onclick = () => {
+    const b = $('#percyBtn'); b.classList.remove('jump'); void b.offsetWidth; b.classList.add('jump');
+    setTimeout(() => { $('#percySay').innerHTML = `<div class="bubble">${P[p++ % P.length]}</div>`; const r = b.getBoundingClientRect(); firework(r.left + r.width / 2, r.top, .5); }, 1300);
+  };
+})();
+
+/* ---------- letter ---------- */
+const LETTER = [
+  'My loveeee,',
+  'Happy 20th birthday.',
+  'I made this whole little world because you deserve at least one thing on your birthday that was made only for you, with every small detail you ever told me hidden somewhere inside it. The red, the sunflowers, the chai, the beach sunset, Percy and his ridiculous jumps. All of it.',
+  'Aap jaisi hain, mere liye waisi hi perfect hain. Don\'t change a thing.',
+  'I know this year was grey sometimes. You still got through it, and you stayed kind the whole way. That is the thing about you I will never get over.',
+  'I can\'t be there yet. But I\'m right here, every single day, talking too loud and laughing too much, just the way you like it. And one day, Venice. Seats 20A and 20B. The window is yours.',
+  'Har nazm, har lafz, bas aapke liye.',
+  'I love you, princess. Happy birthday.'
+];
+window.on_letter = () => {
+  const env = $('#envelope'); env.classList.remove('open'); $('#letterOut').innerHTML = ''; $('#envHint').style.display = '';
+  env.onclick = () => {
+    if (env.classList.contains('open')) return; env.classList.add('open'); $('#envHint').style.display = 'none';
+    setTimeout(() => {
+      const paper = document.createElement('div'); paper.className = 'letterPaper'; $('#letterOut').appendChild(paper);
+      paper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      let li = 0;
+      (function nextLine() {
+        if (li >= LETTER.length) { const s = document.createElement('p'); s.className = 'sign'; paper.appendChild(s); typeText(s, 'Yours, Nafay', 110, () => { confetti(70); }); return; }
+        const pEl = document.createElement('p'); paper.appendChild(pEl); if (li > 1) pEl.style.marginTop = '14px';
+        typeText(pEl, LETTER[li++], 26, () => setTimeout(nextLine, 280));
+      })();
+    }, 800);
+  };
+};
+
+
+
+document.body.classList.add('t-velvet');
+go('countdown');
+</script>
+</body>
+</html>
