@@ -27,6 +27,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:999px;font-weight:600;font-size:15px;background:linear-gradient(135deg,var(--peony2),var(--red));box-shadow:0 10px 30px -10px var(--peony2);transition:transform .15s}
 .btn:active{transform:scale(.95)}
 .btn.ghost{background:rgba(255,255,255,.14);box-shadow:none;border:1px solid rgba(255,255,255,.3)}
+.topfade{position:fixed;top:0;left:0;right:0;height:calc(72px + env(safe-area-inset-top));z-index:49;pointer-events:none;background:linear-gradient(var(--s1) 55%,transparent)}
 .back{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);position:fixed;top:max(12px,env(safe-area-inset-top));left:12px;z-index:50;padding:9px 16px;border-radius:999px;font-size:14px;font-weight:600}
 .page{min-height:100%;padding:76px 16px 60px;position:relative;z-index:1}
 .page-in{animation:pageIn .6s cubic-bezier(.2,.8,.2,1)}
@@ -674,9 +675,9 @@ function go(id) {
   $$('.screen').forEach(s => s.classList.add('hidden'));
   const el = $('#' + id); el.classList.remove('hidden'); el.scrollTop = 0;
   const pg = $('.page', el); if (pg) { pg.classList.remove('page-in'); void pg.offsetWidth; pg.classList.add('page-in'); }
-  $$('.back').forEach(b => b.remove());
+  $$('.back,.topfade').forEach(b => b.remove());
   if (!['countdown', 'lock', 'intro', 'home'].includes(id)) {
-    const b = document.createElement('button'); b.className = 'back glass'; b.textContent = '← home'; b.onclick = () => go('home'); el.appendChild(b);
+    const f = document.createElement('div'); f.className = 'topfade'; el.appendChild(f); const b = document.createElement('button'); b.className = 'back glass'; b.textContent = '← home'; b.onclick = () => go('home'); el.appendChild(b);
   }
   if (window['on_' + id]) window['on_' + id]();
 }
@@ -1160,7 +1161,7 @@ window.on_things = drawThings;
 const LETTER = [
   'My loveeee,',
   'Happy 20th birthday.',
-  'I made this whole little world because you deserve at least one thing on your birthday that was made only for you, with every small detail you ever told me hidden somewhere inside it. The red, the sunflowers, the chai, the beach sunset, Percy and his ridiculous jumps. All of it.',
+  'I made this whole little world because you deserve at least one thing on your birthday that was made only for you, with every small detail you ever told me hidden somewhere inside it. The red velvet cake, the fireworks, the Venice tickets, Percy and his ridiculous jumps. All of it.',
   'Aap jaisi hain, mere liye waisi hi perfect hain. Don\'t change a thing.',
   'I know this year was grey sometimes. You still got through it, and you stayed kind the whole way. That is the thing about you I will never get over.',
   'I can\'t be there yet. But I\'m right here, every single day, talking too loud and laughing too much, just the way you like it. And one day, Venice. Seats 20A and 20B. The window is yours.',
