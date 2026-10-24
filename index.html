@@ -715,7 +715,7 @@ function keypad(el, len, onDone) {
   };
 }
 
-/* secret override: tap the clock 5 times, then 2411 */
+/* secret override: tap the clock 5 times */
 let taps = 0, tapT;
 $('#cdClock').addEventListener('click', () => {
   taps++; clearTimeout(tapT); tapT = setTimeout(() => taps = 0, 1500);
