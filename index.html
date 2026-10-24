@@ -725,7 +725,7 @@ $('#cdClock').addEventListener('click', () => {
     m.innerHTML = `<div class="glass center" style="padding:26px 18px;border-radius:26px"><div class="eyebrow">nafay only</div><div class="dots"><i></i><i></i><i></i><i></i></div><div class="pad"></div><button class="skip" style="margin-top:16px">close</button></div>`;
     document.body.appendChild(m);
     $('.skip', m).onclick = () => m.remove();
-    keypad({ dots: $('.dots', m), pad: $('.pad', m) }, 4, (c, done) => { const ok = c === '2411'; done(ok); if (ok) setTimeout(() => { m.remove(); clearInterval(cdTimer); go('lock'); }, 500); });
+    keypad({ dots: $('.dots', m), pad: $('.pad', m) }, 4, (c, done) => { const ok = c === '5350'; done(ok); if (ok) setTimeout(() => { m.remove(); clearInterval(cdTimer); go('lock'); }, 500); });
   }
 });
 
