@@ -1438,6 +1438,8 @@ const STARS = [
   ['desserts', 'desserts', 84, 86], ['song', 'your song', 50, 97], ['cats', 'Hades & Percy', 16, 86], ['ticket', 'Venice', 50, 64]];
 const EDGES = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 0], [1, 8], [8, 3]];
 // every visit starts the sky fresh: no stars found yet, and the name can be written again
+try { localStorage.removeItem('ishu20:found'); localStorage.removeItem('ishu20:nameShown'); } catch (e) {} // forget what older versions saved
+addEventListener('pageshow', e => { if (e.persisted) location.reload(); }); // a page the phone kept in memory starts over too
 let found = new Set(), justFound = new Set(), firstHome = false, lastStar = null, skyOpened = false, nameShown = false;
 function markFound(id) { lastStar = id; if (!found.has(id)) { found.add(id); justFound.add(id); } }
 
