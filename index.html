@@ -1021,11 +1021,13 @@ function toast(html, ms = 4600) {
   setTimeout(bye, ms);
 }
 const Secrets = (() => {
-  const got = new Set(store.get('secrets', []).filter(id => SECRETS.some(s => s[0] === id)));
+  // like the stars, the secrets start hidden again every time the site opens
+  try { localStorage.removeItem('ishu20:secrets'); } catch (e) {}
+  const got = new Set();
   function paint() { const el = $('#secretText'); if (el) el.textContent = got.size === SECRETS.length ? `all ${SECRETS.length} secrets` : `${got.size} of ${SECRETS.length} secrets`; }
   function find(id, at) {
     if (got.has(id)) return false;
-    got.add(id); store.set('secrets', [...got]); paint();
+    got.add(id); paint();
     const s = SECRETS.find(x => x[0] === id);
     toast(`<small>✧ secret ${got.size} of ${SECRETS.length}</small><b>${s[1]}</b><p>${s[2]}</p>`);
     if (at) firework(at.x, at.y, .55);
