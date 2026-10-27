@@ -1454,7 +1454,7 @@ function drawCrown(W, H) {
   const jewel = (t, big) => { const [x, y] = q(mA, mB, mK, t); return big ? `<ellipse cx="${f(x)}" cy="${f(y)}" rx="6.5" ry="8.5"/><ellipse cx="${f(x)}" cy="${f(y)}" rx="3.2" ry="4.6"/><path d="M${f(x - 6.5)} ${f(y)} H${f(x + 6.5)} M${f(x)} ${f(y - 8.5)} V${f(y + 8.5)}" stroke-width=".5"/>` : `<path d="M${f(x)} ${f(y - 6)} L${f(x + 4.5)} ${f(y)} L${f(x)} ${f(y + 6)} L${f(x - 4.5)} ${f(y)} Z"/>`; };
   const orb = (p, cross) => { const [x, y] = [p[0], p[1] - 17]; return `<circle cx="${f(x)}" cy="${f(y)}" r="3.4"/><path d="M${f(x)} ${f(y + 3.4)} V${f(y + 9)}"/>` + (cross ? `<path d="M${f(x)} ${f(y - 3.4)} V${f(y - 12)} M${f(x - 3.5)} ${f(y - 8.5)} H${f(x + 3.5)}"/>` : ''); };
   const arch = (a, b, k) => `M${pt(a)} Q${pt(k)} ${pt(b)}`;
-  return `<defs><pattern id="hatchA" width="4.5" height="4.5" patternUnits="userSpaceOnUse" patternTransform="rotate(20)"><path d="M0 0 V4.5" stroke="#d8b06a" stroke-width=".55"/></pattern><pattern id="hatchB" width="4.5" height="4.5" patternUnits="userSpaceOnUse" patternTransform="rotate(-24)"><path d="M0 0 V4.5" stroke="#d8b06a" stroke-width=".5"/></pattern><linearGradient id="shadeG"><stop offset="0" stop-color="#fff"/><stop offset=".36" stop-color="#fff" stop-opacity="0"/><stop offset=".7" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".7"/></linearGradient><mask id="shadeM" maskContentUnits="userSpaceOnUse"><rect width="${W}" height="${H * 1.1}" fill="url(#shadeG)"/></mask><path id="bandMid" d="M${pt(mA)} Q${pt(mK)} ${pt(mB)}"/></defs>
+  return `<defs><pattern id="hatchA" width="4.5" height="4.5" patternUnits="userSpaceOnUse" patternTransform="rotate(20)"><path d="M0 0 V4.5" stroke="#d8b06a" stroke-width=".55"/></pattern><pattern id="hatchB" width="4.5" height="4.5" patternUnits="userSpaceOnUse" patternTransform="rotate(-24)"><path d="M0 0 V4.5" stroke="#d8b06a" stroke-width=".5"/></pattern><linearGradient id="shadeG"><stop offset="0" stop-color="#fff"/><stop offset=".36" stop-color="#fff" stop-opacity="0"/><stop offset=".7" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".7"/></linearGradient><mask id="shadeM" maskContentUnits="userSpaceOnUse"><rect width="${W}" height="${H * 1.1}" fill="url(#shadeG)"/></mask></defs>
 <g fill="none" stroke="#d8b06a" stroke-width=".8" stroke-linejoin="round">
 <path d="${body}" fill="url(#hatchA)" stroke="none" mask="url(#shadeM)"/>
 <path d="${band}" fill="url(#hatchB)" stroke="none" opacity=".8"/>
@@ -1466,7 +1466,6 @@ function drawCrown(W, H) {
 <path d="M${pt(inset(top[2], 10))} L${pt(P(50, 59))} M${pt(P(50, 69.5))} L${pt(q(bTa, bTb, bTk, .5))}" stroke-width=".6"/>
 ${jewel(.1, true)}${jewel(.9, true)}${jewel(.21)}${jewel(.79)}
 ${orb(top[0])}${orb(top[2], true)}${orb(top[4])}
-<text font-family="IM Fell English" font-size="9" letter-spacing="1.6" fill="#d8b06a" stroke="none" dy="3"><textPath href="#bandMid" startOffset="50%" text-anchor="middle">CORONA · ISHMAIRAE</textPath></text>
 </g>`;
 }
 /* anim 'open': every lit line connects again, one after another (each time the site opens)
