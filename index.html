@@ -135,7 +135,8 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-r
 .star small{font-family:var(--display);font-style:italic;font-size:16px;line-height:1.05;text-align:center;transition:color .8s,opacity .8s;text-shadow:0 1px 8px #090306}
 .star.off small{opacity:.6}
 .star.on small{color:var(--accent)}
-.star.just .core{animation:ignite 1.4s ease-out}
+.star.just .core{animation:ignite 1.4s ease-out var(--d,0s) both,lit 4s ease-in-out calc(var(--d,0s) + 1.4s) infinite}
+#mapPulse.wait{animation:fade 1s ease var(--w,0s) both}
 @keyframes ignite{0%{transform:scale(.4)}40%{transform:scale(2.2);box-shadow:0 0 30px 14px #fff3d6}100%{transform:none}}
 .moon{position:absolute;right:14px;top:calc(max(40px,env(safe-area-inset-top)) - 8px);width:52px;height:52px;z-index:4;filter:drop-shadow(0 0 12px rgba(246,226,176,.42))}
 .moon svg{width:100%;height:100%;display:block;animation:moonBob 7s ease-in-out infinite}
@@ -171,7 +172,8 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-r
 .secrets li.got{border:1px solid rgba(216,176,106,.5);background:rgba(216,176,106,.08)}
 .secrets li.got b{opacity:1;color:var(--accent)}
 .secrets li.got span{opacity:.92}
-.secrets .close{position:absolute;top:10px;right:12px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.06);font-size:20px}
+.secrets .close{position:absolute;top:10px;right:12px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.06);color:var(--ink);font-size:20px}
+
 /* ================= the nine scenes ================= */
 .scene .set{position:relative;min-height:100%;overflow:hidden}
 .scene .wrap{padding-top:78px}
@@ -1010,7 +1012,8 @@ const SECRETS = [
   ['hades', 'Hades, cracked', "Fine. I like you. Don't tell Percy.", 'Hades is hard to impress. Keep trying.'],
   ['percy', "Percy's moon jump", 'MAMA I TOUCHED THE MOON', 'Percy wants to go higher. Help him, fast.'],
   ['board', 'More somedays', 'More flights on the board. All of them on time.', 'Departure boards have more than one flight.']
-];
+].filter(s => typeof SECRET_IDS === 'undefined' || SECRET_IDS.includes(s[0]));
+const SECRET_WORD = { 6: 'six', 10: 'ten' }[SECRETS.length] || String(SECRETS.length);
 function toast(html, ms = 4600) {
   $$('.toast').forEach(t => t.remove());
   const t = document.createElement('div'); t.className = 'toast'; t.innerHTML = html; document.body.appendChild(t);
@@ -1019,19 +1022,19 @@ function toast(html, ms = 4600) {
 }
 const Secrets = (() => {
   const got = new Set(store.get('secrets', []).filter(id => SECRETS.some(s => s[0] === id)));
-  function paint() { const el = $('#secretText'); if (el) el.textContent = got.size === SECRETS.length ? 'all 10 secrets' : `${got.size} of 10 secrets`; }
+  function paint() { const el = $('#secretText'); if (el) el.textContent = got.size === SECRETS.length ? `all ${SECRETS.length} secrets` : `${got.size} of ${SECRETS.length} secrets`; }
   function find(id, at) {
     if (got.has(id)) return false;
     got.add(id); store.set('secrets', [...got]); paint();
     const s = SECRETS.find(x => x[0] === id);
     toast(`<small>✧ secret ${got.size} of ${SECRETS.length}</small><b>${s[1]}</b><p>${s[2]}</p>`);
     if (at) firework(at.x, at.y, .55);
-    if (got.size === SECRETS.length) setTimeout(() => { toast('<small>✧ all ten</small><b>Every secret, found.</b><p>Nothing gets past you, princess.</p>', 6500); show(8); }, 5000);
+    if (got.size === SECRETS.length) setTimeout(() => { toast(`<small>✧ all ${SECRET_WORD}</small><b>Every secret, found.</b><p>Nothing gets past you, princess.</p>`, 6500); show(8); }, 5000);
     return true;
   }
   function open() {
     const m = document.createElement('div'); m.className = 'modal';
-    m.innerHTML = `<div class="secrets"><button class="close" aria-label="close">×</button><p class="eyebrow">✧ ${got.size} of 10 found</p><h2 class="title">Secrets</h2><p class="sub">Ten little things are hidden around your sky.</p><ul>${SECRETS.map(([id, t, msg, hint]) => got.has(id) ? `<li class="got"><b>${t}</b><span>${msg}</span></li>` : `<li><b>a secret</b><span>${hint}</span></li>`).join('')}</ul></div>`;
+    m.innerHTML = `<div class="secrets"><button class="close" aria-label="close">×</button><p class="eyebrow">✧ ${got.size} of ${SECRETS.length} found</p><h2 class="title">Secrets</h2><p class="sub">${SECRET_WORD[0].toUpperCase() + SECRET_WORD.slice(1)} little things are hidden around your sky.</p><ul>${SECRETS.map(([id, t, msg, hint]) => got.has(id) ? `<li class="got"><b>${t}</b><span>${msg}</span></li>` : `<li><b>a secret</b><span>${hint}</span></li>`).join('')}</ul></div>`;
     document.body.appendChild(m); $('.close', m).onclick = () => m.remove(); m.addEventListener('click', e => { if (e.target === m) m.remove(); });
   }
   return { find, open, paint, has: id => got.has(id) };
@@ -1434,8 +1437,8 @@ const STARS = [
   ['poems', 'poetry corner', 13, 30], ['things', '20 things', 31, 52], ['letter', 'a letter', 50, 8], ['cake', 'cake', 69, 52], ['arcade', 'arcade', 87, 30],
   ['desserts', 'desserts', 84, 86], ['song', 'your song', 50, 97], ['cats', 'Hades & Percy', 16, 86], ['ticket', 'Venice', 50, 64]];
 const EDGES = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 0], [1, 8], [8, 3]];
-let found = new Set(store.get('found', [])), justFound = new Set(), firstHome = false;
-function markFound(id) { if (!found.has(id)) { found.add(id); justFound.add(id); store.set('found', [...found]); } }
+let found = new Set(store.get('found', [])), justFound = new Set(), firstHome = false, lastStar = null, skyOpened = false;
+function markFound(id) { lastStar = id; if (!found.has(id)) { found.add(id); justFound.add(id); store.set('found', [...found]); } }
 
 /* an old star-atlas engraving of a crown, drawn behind the constellation */
 function drawCrown(W, H) {
@@ -1466,37 +1469,53 @@ ${orb(top[0])}${orb(top[2], true)}${orb(top[4])}
 <text font-family="IM Fell English" font-size="9" letter-spacing="1.6" fill="#d8b06a" stroke="none" dy="3"><textPath href="#bandMid" startOffset="50%" text-anchor="middle">CORONA · ISHMAIRAE</textPath></text>
 </g>`;
 }
-function drawMap() {
+/* anim 'open': every lit line connects again, one after another (each time the site opens)
+   anim 'back': the star she just came back from lights up and its lines connect again (every visit, not only the first)
+   no anim: a quiet redraw */
+function drawMap(anim) {
   const map = $('#map'); $$('.star', map).forEach(s => s.remove());
-  STARS.forEach(([id, label, x, y]) => {
-    const b = document.createElement('button'); b.className = 'star ' + (found.has(id) ? 'on' : 'off') + (justFound.has(id) ? ' just' : '');
+  const W = map.clientWidth, H = map.clientHeight, n = found.size;
+  const back = anim === 'back' ? STARS.findIndex(s => s[0] === lastStar) : -1, light = {};
+  let lines = '', pulses = '', k = 0, end = 0;
+  EDGES.forEach(([a, c]) => {
+    const on = found.has(STARS[a][0]) && found.has(STARS[c][0]);
+    let ia = a, ib = c, d = -1;
+    if (on && anim === 'open') d = .35 + k++ * .3;
+    if (on && back >= 0 && (a === back || c === back)) { d = .35; if (c === back) [ia, ib] = [c, a]; } // light travels out from the star she just opened
+    const A = STARS[ia], B = STARS[ib], x1 = A[2] / 100 * W, y1 = A[3] / 100 * H, x2 = B[2] / 100 * W, y2 = B[3] / 100 * H, len = Math.hypot(x2 - x1, y2 - y1).toFixed(1);
+    if (!on) { lines += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="rgba(246,226,176,.13)" stroke-width="1" stroke-dasharray="2 7"/>`; return; }
+    pulses += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="pulse" style="--len:${len}px;animation-duration:${(len / 38).toFixed(1)}s;animation-delay:-${rand(0, 6).toFixed(1)}s" stroke="#fff3d6" stroke-width="2" stroke-linecap="round" stroke-dasharray="18 ${len}" opacity=".75"/>`;
+    if (d >= 0) { light[ia] = Math.min(light[ia] ?? 99, d); light[ib] = Math.min(light[ib] ?? 99, d + 1.1); end = Math.max(end, d + 1.4); }
+    const delay = d >= 0 ? `;animation-delay:${d.toFixed(2)}s` : '';
+    lines += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="${d >= 0 ? 'draw' : ''}" style="--len:${len}px${delay}" stroke="var(--line)" stroke-width="1.6" filter="url(#lineGlow)"/>` +
+      (d >= 0 ? `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="comet" style="--len:${len}px${delay}" stroke="#fff8e6" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="14 ${(+len + 40).toFixed(0)}" filter="url(#lineGlow)"/>` : '');
+  });
+  if (back >= 0 && !(back in light)) light[back] = .25;
+  if (anim === 'open') STARS.forEach((s, i) => { if (found.has(s[0]) && !(i in light)) light[i] = .35; });
+  STARS.forEach(([id, label, x, y], i) => {
+    const b = document.createElement('button'); b.className = 'star ' + (found.has(id) ? 'on' : 'off') + (i in light ? ' just' : '');
+    if (i in light) b.style.setProperty('--d', light[i].toFixed(2) + 's');
     b.style.left = x + '%'; b.style.top = y + '%'; b.innerHTML = `<span class="core"></span><small>${label}</small>`; b.setAttribute('aria-label', label + (found.has(id) ? ', found' : ''));
     b.onclick = () => go(id); map.appendChild(b);
   });
-  const W = map.clientWidth, H = map.clientHeight, n = found.size;
   const crown = $('#crown'); crown.innerHTML = drawCrown(W, H); crown.style.opacity = n === 9 ? '' : (.1 + n * .035).toFixed(3); crown.classList.toggle('full', n === 9);
-  let pulses = '';
-  $('#mapLines').innerHTML = `<defs><filter id="lineGlow" filterUnits="userSpaceOnUse" x="-20" y="-20" width="${W + 40}" height="${H + 40}"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>` + EDGES.map(([a, c]) => {
-    let A = STARS[a], B = STARS[c]; const on = found.has(A[0]) && found.has(B[0]), fresh = on && (justFound.has(A[0]) || justFound.has(B[0]));
-    if (fresh && justFound.has(B[0]) && !justFound.has(A[0])) [A, B] = [B, A]; // light travels out from the star she just found
-    const x1 = A[2] / 100 * W, y1 = A[3] / 100 * H, x2 = B[2] / 100 * W, y2 = B[3] / 100 * H, len = Math.hypot(x2 - x1, y2 - y1).toFixed(1);
-    if (!on) return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="rgba(246,226,176,.13)" stroke-width="1" stroke-dasharray="2 7"/>`;
-    pulses += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="pulse" style="--len:${len}px;animation-duration:${(len / 38).toFixed(1)}s;animation-delay:-${rand(0, 6).toFixed(1)}s" stroke="#fff3d6" stroke-width="2" stroke-linecap="round" stroke-dasharray="18 ${len}" opacity=".75"/>`;
-    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="${fresh ? 'draw' : ''}" style="--len:${len}px" stroke="var(--line)" stroke-width="1.6" filter="url(#lineGlow)"/>` +
-      (fresh ? `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="comet" style="--len:${len}px" stroke="#fff8e6" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="14 ${(+len + 40).toFixed(0)}" filter="url(#lineGlow)"/>` : '');
-  }).join('');
-  $('#mapPulse').innerHTML = pulses;
+  $('#mapLines').innerHTML = `<defs><filter id="lineGlow" filterUnits="userSpaceOnUse" x="-20" y="-20" width="${W + 40}" height="${H + 40}"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>` + lines;
+  // the light running along the lines waits until everything has connected
+  const mp = $('#mapPulse'); mp.innerHTML = pulses; mp.classList.remove('wait');
+  if (end) { void mp.getBoundingClientRect(); mp.style.setProperty('--w', end.toFixed(2) + 's'); mp.classList.add('wait'); }
   $('#foundText').textContent = n === 9 ? 'all 9 found. see your name' : `${n} of 9 found`;
   $('#homeHint').textContent = n === 0 ? 'tap a star' : n === 9 ? 'every star is lit' : 'keep going, princess';
   Secrets.paint();
 }
 window.on_home = () => {
-  drawMap();
+  const anim = !skyOpened ? 'open' : lastStar ? 'back' : null, id = lastStar, isNew = justFound.has(id);
+  skyOpened = true;
+  drawMap(anim);
   if (firstHome) { firstHome = false; confetti(70); }
-  if (justFound.size) { justFound.forEach(id => { const s = STARS.find(x => x[0] === id), m = $('#map').getBoundingClientRect(); setTimeout(() => firework(m.left + s[2] / 100 * m.width, m.top + s[3] / 100 * m.height, .35), 500); }); }
+  if (anim === 'back') { const s = STARS.find(x => x[0] === id), m = $('#map').getBoundingClientRect(); setTimeout(() => firework(m.left + s[2] / 100 * m.width, m.top + s[3] / 100 * m.height, isNew ? .35 : .22), 450); }
   const completedNow = found.size === 9 && !store.get('nameShown', false);
-  justFound.clear();
-  if (completedNow) setTimeout(playName, 1900);
+  justFound.clear(); lastStar = null;
+  if (completedNow) setTimeout(playName, anim === 'open' ? 4200 : 1900);
 };
 $('#foundPill').onclick = () => { if (found.size === 9) playName(); };
 $('#secretPill').onclick = () => Secrets.open();
@@ -1541,7 +1560,7 @@ function playName() {
 
 /* ---------- little sparkles wherever she touches the sky (and maybe a caught wish) ---------- */
 addEventListener('pointerdown', e => {
-  if (e.target.closest('button,a,.stage,canvas,.scratch,.modal,#cakeSvg,.env,.paper,.scrap,.jarBox,.board,.deck,.slip,.toast')) return;
+  if (e.target.closest('button,a,.stage,canvas,.scratch,.modal,#cakeSvg,.env,.envelope,.paper,.scrap,.jarBox,.board,.deck,.slip,.toast')) return;
   if (current === 'home') {
     const at = Sky.catchAt(e.clientX, e.clientY);
     if (at) {
@@ -1556,6 +1575,7 @@ addEventListener('pointerdown', e => {
   for (let i = 0; i < 12; i++) { const a = i / 12 * Math.PI * 2; parts.push({ x: e.clientX, y: e.clientY, vx: Math.cos(a) * rand(1, 2.6), vy: Math.sin(a) * rand(1, 2.6), life: 1, decay: .035, c: cols[i % 3], s: rand(1.2, 2) }); }
   if (!fxRaf) fxRaf = requestAnimationFrame(fxLoop);
 }, { passive: true });
+
 
 /* ---------- the nine scenes ---------- */
 /* ================= 1. poems: a candlelit writing desk ================= */
