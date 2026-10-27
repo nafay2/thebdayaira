@@ -1437,8 +1437,9 @@ const STARS = [
   ['poems', 'poetry corner', 13, 30], ['things', '20 things', 31, 52], ['letter', 'a letter', 50, 8], ['cake', 'cake', 69, 52], ['arcade', 'arcade', 87, 30],
   ['desserts', 'desserts', 84, 86], ['song', 'your song', 50, 97], ['cats', 'Hades & Percy', 16, 86], ['ticket', 'Venice', 50, 64]];
 const EDGES = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 0], [1, 8], [8, 3]];
-let found = new Set(store.get('found', [])), justFound = new Set(), firstHome = false, lastStar = null, skyOpened = false;
-function markFound(id) { lastStar = id; if (!found.has(id)) { found.add(id); justFound.add(id); store.set('found', [...found]); } }
+// every visit starts the sky fresh: no stars found yet, and the name can be written again
+let found = new Set(), justFound = new Set(), firstHome = false, lastStar = null, skyOpened = false, nameShown = false;
+function markFound(id) { lastStar = id; if (!found.has(id)) { found.add(id); justFound.add(id); } }
 
 /* an old star-atlas engraving of a crown, drawn behind the constellation */
 function drawCrown(W, H) {
@@ -1512,7 +1513,7 @@ window.on_home = () => {
   drawMap(anim);
   if (firstHome) { firstHome = false; confetti(70); }
   if (anim === 'back') { const s = STARS.find(x => x[0] === id), m = $('#map').getBoundingClientRect(); setTimeout(() => firework(m.left + s[2] / 100 * m.width, m.top + s[3] / 100 * m.height, isNew ? .35 : .22), 450); }
-  const completedNow = found.size === 9 && !store.get('nameShown', false);
+  const completedNow = found.size === 9 && !nameShown;
   justFound.clear(); lastStar = null;
   if (completedNow) setTimeout(playName, anim === 'open' ? 4200 : 1900);
 };
@@ -1532,7 +1533,7 @@ if (Secrets.has('star10')) $('#tiny').classList.add('lit');
 
 /* when every star is found, they fly together and write her name */
 function playName() {
-  store.set('nameShown', true);
+  nameShown = true;
   const L = document.createElement('div'); L.id = 'nameLayer';
   L.innerHTML = `<canvas></canvas><div class="nameText fadeUp"><p class="title" style="font-size:26px">all nine stars were you</p><p class="sub" style="margin-top:6px">Happy 20th, princess</p><button class="btn ghost" style="margin-top:18px">back to your sky</button></div>`;
   document.body.appendChild(L);
